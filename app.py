@@ -8,7 +8,7 @@ CORS(app, supports_credentials=True, origins='*')  # Allow all origins (*)
 # ... your existing Flask
 
 # add an api endpoint to flask app
-@app.route('/api/bailey')
+@app.route('/bailey')
 def get_data():
     # start a list, to be used like a information database
     InfoDb = []

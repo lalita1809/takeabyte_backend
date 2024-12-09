@@ -25,6 +25,98 @@ def get_data():
 
     return jsonify(InfoDb)
 
+
+#lalita
+@app.route('/lalita')
+def get_data():
+    # start a list, to be used like a information database
+    InfoDb = []
+
+    # add a row to list, an Info record
+    InfoDb.append({
+        "FirstName": "Bailey",
+        "LastName": "Leeder",
+        "DOB": "June 7",
+        "Residence": "San Diego",
+        "Email": "baileyleeder101@gmail.com",
+        "Owns_Cars": ["none"]
+    })
+
+    return jsonify(InfoDb)
+
+#joanna
+@app.route('/joanna')
+def get_data():
+    # start a list, to be used like a information database
+    InfoDb = []
+
+    # add a row to list, an Info record
+    InfoDb.append({
+        "FirstName": "Bailey",
+        "LastName": "Leeder",
+        "DOB": "June 7",
+        "Residence": "San Diego",
+        "Email": "baileyleeder101@gmail.com",
+        "Owns_Cars": ["none"]
+    })
+
+    return jsonify(InfoDb)
+
+#yuva
+@app.route('/yuva')
+def get_data():
+    # start a list, to be used like a information database
+    InfoDb = []
+
+    # add a row to list, an Info record
+    InfoDb.append({
+        "FirstName": "Bailey",
+        "LastName": "Leeder",
+        "DOB": "June 7",
+        "Residence": "San Diego",
+        "Email": "baileyleeder101@gmail.com",
+        "Owns_Cars": ["none"]
+    })
+
+    return jsonify(InfoDb)
+
+#ahmad
+@app.route('/ahmad')
+def get_data():
+    # start a list, to be used like a information database
+    InfoDb = []
+
+    # add a row to list, an Info record
+    InfoDb.append({
+        "FirstName": "Bailey",
+        "LastName": "Leeder",
+        "DOB": "June 7",
+        "Residence": "San Diego",
+        "Email": "baileyleeder101@gmail.com",
+        "Owns_Cars": ["none"]
+    })
+
+    return jsonify(InfoDb)
+
+
+#nathan
+@app.route('/nathan')
+def get_data():
+    # start a list, to be used like a information database
+    InfoDb = []
+
+    # add a row to list, an Info record
+    InfoDb.append({
+        "FirstName": "Bailey",
+        "LastName": "Leeder",
+        "DOB": "June 7",
+        "Residence": "San Diego",
+        "Email": "baileyleeder101@gmail.com",
+        "Owns_Cars": ["none"]
+    })
+
+    return jsonify(InfoDb)
+
 # add an HTML endpoint to flask app
 @app.route('/')
 def say_hello():
@@ -43,3 +135,5 @@ def say_hello():
 if __name__ == '__main__':
     # starts flask server on default port, http://127.0.0.1:5001
     app.run(port=5001)
+
+

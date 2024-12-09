@@ -60,15 +60,6 @@ if __name__ == '__main__':
 
 
 #Joanna API 
-from flask import Flask, jsonify
-from flask_cors import CORS
-
-# initialize a flask application (app)
-app = Flask(__name__)
-CORS(app, supports_credentials=True, origins='*')  # Allow all origins (*)
-
-# ... your existing Flask
-
 # add an api endpoint to flask app
 @app.route('/api/Joanna/')
 def get_data():
@@ -88,14 +79,6 @@ def get_data():
     return jsonify(InfoDb)
 
 #Bailey API 
-from flask import Flask, jsonify
-from flask_cors import CORS
-
-# initialize a flask application (app)
-app = Flask(__name__)
-CORS(app, supports_credentials=True, origins='*')  # Allow all origins (*)
-
-# ... your existing Flask
 
 # add an api endpoint to flask app
 @app.route('/api/Bailey/')

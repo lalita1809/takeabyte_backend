@@ -9,7 +9,7 @@ CORS(app, supports_credentials=True, origins='*')  # Allow all origins (*)
 
 # add an api endpoint to flask app
 @app.route('/bailey')
-def get_data():
+def get_bailey():
     # start a list, to be used like a information database
     InfoDb = []
 
@@ -28,17 +28,17 @@ def get_data():
 
 #lalita
 @app.route('/lalita')
-def get_data():
+def get_lalita():
     # start a list, to be used like a information database
     InfoDb = []
 
     # add a row to list, an Info record
     InfoDb.append({
-        "FirstName": "Bailey",
-        "LastName": "Leeder",
-        "DOB": "June 7",
+        "FirstName": "Lalita",
+        "LastName": "Narayanan",
+        "DOB": "September 18",
         "Residence": "San Diego",
-        "Email": "baileyleeder101@gmail.com",
+        "Email": "lalitan34221@stu.powayusd.com",
         "Owns_Cars": ["none"]
     })
 
@@ -46,17 +46,17 @@ def get_data():
 
 #joanna
 @app.route('/joanna')
-def get_data():
+def get_joanna():
     # start a list, to be used like a information database
     InfoDb = []
 
     # add a row to list, an Info record
     InfoDb.append({
-        "FirstName": "Bailey",
-        "LastName": "Leeder",
-        "DOB": "June 7",
+        "FirstName": "Joanna",
+        "LastName": "Hu",
+        "DOB": "April 26",
         "Residence": "San Diego",
-        "Email": "baileyleeder101@gmail.com",
+        "Email": "joanna.y.hu@gmail.com",
         "Owns_Cars": ["none"]
     })
 
@@ -64,35 +64,35 @@ def get_data():
 
 #yuva
 @app.route('/yuva')
-def get_data():
+def get_yuva():
     # start a list, to be used like a information database
     InfoDb = []
 
     # add a row to list, an Info record
     InfoDb.append({
-        "FirstName": "Bailey",
-        "LastName": "Leeder",
-        "DOB": "June 7",
+        "FirstName": "Yuva",
+        "LastName": "Bala",
+        "DOB": "Feburary 14",
         "Residence": "San Diego",
-        "Email": "baileyleeder101@gmail.com",
-        "Owns_Cars": ["none"]
+        "Email": "yuvabala214@gmail.com",
+        "Owns_Cars": ["Tesla-Model-3", "Tesla-Model-X", "Cybertruck"]
     })
 
     return jsonify(InfoDb)
 
 #ahmad
 @app.route('/ahmad')
-def get_data():
+def get_ahmad():
     # start a list, to be used like a information database
     InfoDb = []
 
     # add a row to list, an Info record
     InfoDb.append({
-        "FirstName": "Bailey",
-        "LastName": "Leeder",
-        "DOB": "June 7",
+        "FirstName": "Ahmad",
+        "LastName": "Imran",
+        "DOB": "May 28",
         "Residence": "San Diego",
-        "Email": "baileyleeder101@gmail.com",
+        "Email": "ahmadimran.2009@outlook.ie",
         "Owns_Cars": ["none"]
     })
 
@@ -101,17 +101,17 @@ def get_data():
 
 #nathan 
 @app.route('/nathan')
-def get_data():
+def get_nathan():
     # start a list, to be used like a information database
     InfoDb = []
 
     # add a row to list, an Info record
     InfoDb.append({
-        "FirstName": "Bailey",
-        "LastName": "Leeder",
-        "DOB": "June 7",
+        "FirstName": "Nathan",
+        "LastName": "Tejidor",
+        "DOB": "October 7",
         "Residence": "San Diego",
-        "Email": "baileyleeder101@gmail.com",
+        "Email": "nateji5@gmail.com",
         "Owns_Cars": ["none"]
     })
 

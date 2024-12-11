@@ -1,4 +1,4 @@
-
+from flask import jsonify
 from flask import Blueprint
 from flask_restful import Api, Resource # used for REST API building
 
@@ -23,7 +23,7 @@ class StudentAPI:
                 "name": "Bailey Leeder",
                 "age": 16,
                 "major": "Chem Maybe",
-                "university": "ABC University"
+                "university": "Del Norte"
             },
             "Yuva": {
                 "name": "Yuva Bala",

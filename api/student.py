@@ -1,7 +1,6 @@
 from flask import Blueprint, jsonify
 from flask_restful import Api, Resource # used for REST API building
 
-
 student_api = Blueprint('student_api', __name__,
                    url_prefix='/api')
 
@@ -14,7 +13,7 @@ class StudentAPI:
         students = {
             "Ahmad": {
                 "name": "Ahmad",
-                "age": 16,
+                "age": 15,
                 "major": "Something medical related",
                 "university": "University of California, Los Angeles ",
             },
@@ -50,7 +49,7 @@ class StudentAPI:
             },
         }
         return students.get(name)
-     
+
     class _lalita(Resource): 
         def get(self):
             student = StudentAPI.get_student("Lalita")

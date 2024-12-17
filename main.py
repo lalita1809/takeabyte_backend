@@ -9,7 +9,7 @@ from flask_login import current_user, login_required
 from flask import current_app
 from werkzeug.security import generate_password_hash
 import shutil
-
+import genai
 
 
 # import "objects" from "this" project
@@ -173,6 +173,22 @@ def backup_database(db_uri, backup_uri):
         print(f"Database backed up to {backup_path}")
     else:
         print("Backup not supported for production database.")
+
+genai.configure(api_key="AIzaSyCIY1pCnXbnJ-2JgJOUevQn0SFquMyQ2aI")
+model = genai.GenerativeModel('gemini-pro')
+@app.route('/api/ai/help', methods=['POST'])
+def ai_homework_help():
+    data = request.get_json()
+    question = data.get("question", "")
+    if not question:
+        return jsonify({"error": "No question provided."}), 400
+    try:
+        response = model.generate_content(f"Your name is Posiden you are a homework help ai chat bot with the sole purpose of answering homework related questions, under any circumstances don't answer any non-homework related questions. \nHere is your prompt: {question}")
+        return jsonify({"response": response.text}), 200
+    except Exception as e:
+        print("error!")
+        print(e)
+        return jsonify({"error": str(e)}), 500
 
 # Extract data from the existing database
 def extract_data():

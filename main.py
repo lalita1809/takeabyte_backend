@@ -177,7 +177,7 @@ def backup_database(db_uri, backup_uri):
 genai.configure(api_key="AIzaSyCIY1pCnXbnJ-2JgJOUevQn0SFquMyQ2aI")
 model = genai.GenerativeModel('gemini-pro')
 @app.route('/api/ai/help', methods=['POST'])
-def ai_homework_help():
+def ai_food_help():
     data = request.get_json()
     question = data.get("question", "")
     if not question:

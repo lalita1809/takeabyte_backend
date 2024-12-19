@@ -9,27 +9,26 @@ from flask_login import current_user, login_required
 from flask import current_app
 from werkzeug.security import generate_password_hash
 import shutil
-import genai
+import google.generativeai as genai
 
 
 # import "objects" from "this" project
 from __init__ import app, db, login_manager  # Key Flask objects 
 # API endpoints
-from api.user import user_api 
-from api.pfp import pfp_api
-from api.nestImg import nestImg_api # Justin added this, custom format for his website
-from api.post import post_api
-from api.channel import channel_api
-from api.group import group_api
-from api.section import section_api
-from api.nestPost import nestPost_api # Justin added this, custom format for his website
-from api.messages_api import messages_api # Adi added this, messages for his website
+#from api.user import user_api 
+#from api.pfp import pfp_api
+#from api.nestImg import nestImg_api # Justin added this, custom format for his website
+#from api.post import post_api
+#from api.channel import channel_api
+#from api.group import group_api
+#from api.section import section_api
+#from api.nestPost import nestPost_api # Justin added this, custom format for his website
+#from api.messages_api import messages_api # Adi added this, messages for his website
 #from api.carphoto import car_api
 #from api.carChat import car_chat_api
-from api.student import student_api
-#from api.chinese_recipes import chinese_recipes_api
+#from api.student import student_api
 
-from api.vote import vote_api
+#from api.vote import vote_api
 # database Initialization functions
 from model.carChat import CarChat
 from model.user import User, initUsers
@@ -42,21 +41,20 @@ from model.vote import Vote, initVotes
 # server only Views
 
 # register URIs for api endpoints
-app.register_blueprint(messages_api) # Adi added this, messages for his website
-app.register_blueprint(user_api)
-app.register_blueprint(pfp_api) 
-app.register_blueprint(post_api)
-app.register_blueprint(channel_api)
-app.register_blueprint(group_api)
-app.register_blueprint(section_api)
+#app.register_blueprint(messages_api) # Adi added this, messages for his website
+#app.register_blueprint(user_api)
+#app.register_blueprint(pfp_api) 
+#app.register_blueprint(post_api)
+#app.register_blueprint(channel_api)
+#app.register_blueprint(group_api)
+#app.register_blueprint(section_api)
 #app.register_blueprint(car_chat_api)
 # Added new files to create nestPosts, uses a different format than Mortensen and didn't want to touch his junk
-app.register_blueprint(nestPost_api)
-app.register_blueprint(nestImg_api)
-app.register_blueprint(vote_api)
+#app.register_blueprint(nestPost_api)
+#app.register_blueprint(nestImg_api)
+#app.register_blueprint(vote_api)
 #app.register_blueprint(car_api)
-app.register_blueprint(student_api)
-#app.register_blueprint(chinese_recipes_api)
+#app.register_blueprint(student_api)
 
 # Tell Flask-Login the view function name of your login route
 login_manager.login_view = "login"
@@ -176,21 +174,21 @@ def backup_database(db_uri, backup_uri):
     else:
         print("Backup not supported for production database.")
 
-#genai.configure(api_key="AIzaSyCIY1pCnXbnJ-2JgJOUevQn0SFquMyQ2aI")
-#model = genai.GenerativeModel('gemini-pro')
-#@app.route('/api/ai/help', methods=['POST'])
-#def ai_homework_help():
-    #data = request.get_json()
-    #question = data.get("question", "")
-    #if not question:
-    #    return jsonify({"error": "No question provided."}), 400
-    #try:
-    #   response = model.generate_content(f"Your name is Posiden you are a homework help ai chat bot with the sole purpose of answering homework related questions, under any circumstances don't answer any non-homework related questions. \nHere is your prompt: {question}")
-    #  return jsonify({"response": response.text}), 200
-    #except Exception as e:
-        #print("error!")
-        #print(e)
-        #return jsonify({"error": str(e)}), 500
+genai.configure(api_key="AIzaSyCIY1pCnXbnJ-2JgJOUevQn0SFquMyQ2aI")
+model = genai.GenerativeModel('gemini-pro')
+@app.route('/api/ai/help', methods=['POST'])
+def ai_food_help():
+    data = request.get_json()
+    question = data.get("question", "")
+    if not question:
+        return jsonify({"error": "No question provided."}), 400
+    try:
+        response = model.generate_content(f"Your name is byte you are a cooking assistant ai chat bot with the sole purpose of answering food related questions, under any circumstances don't answer any non-food related questions. \nHere is your prompt: {question}")
+        return jsonify({"response": response.text}), 200
+    except Exception as e:
+        print("error!")
+        print(e)
+        return jsonify({"error": str(e)}), 500
 
 # Extract data from the existing database
 def extract_data():

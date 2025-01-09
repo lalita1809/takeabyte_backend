@@ -51,8 +51,8 @@ class chinese_recipe_API:
         }
         return recipes.get(name)
 
-     @staticmethod
-     def get_beef_recipe(name):
+    @staticmethod
+    def get_beef_recipe(name):
         recipes = {
              "Beef with Broccoli": {
                 "dish": "Beef with Broccoli",
@@ -93,7 +93,7 @@ class chinese_recipe_API:
         }
         return recipes.get(name)
 
-         @staticmethod
+    @staticmethod
     def get_vegan_recipe(name):
         recipes = {
             "Mapo Tofu": {
@@ -220,7 +220,6 @@ class chinese_recipe_API:
         return recipes.get(name)
       
 
-    class chinese_recipe_API:
     class _KungPaoChicken(Resource):
         def get(self):
             recipe = chinese_recipe_API.get_chicken_recipe("Kung Pao Chicken")

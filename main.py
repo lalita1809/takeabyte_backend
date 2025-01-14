@@ -9,13 +9,13 @@ from flask_login import current_user, login_required
 from flask import current_app
 from werkzeug.security import generate_password_hash
 import shutil
-import google.generativeai as genai
+# import google.generativeai as genai
 
 
 # import "objects" from "this" project
-from __init__ import app, db, login_manager  # Key Flask objects 
+from __init__ import app, db, login_manager  # Key Flask objects   # Import the chinese_recipe_api
 # API endpoints
-#from api.user import user_api 
+from api.user import user_api 
 #from api.pfp import pfp_api
 #from api.nestImg import nestImg_api # Justin added this, custom format for his website
 #from api.post import post_api
@@ -27,16 +27,17 @@ from __init__ import app, db, login_manager  # Key Flask objects
 #from api.carphoto import car_api
 #from api.carChat import car_chat_api
 #from api.student import student_api
+from api.chinese_recipes import chinese_recipe_api
 
 #from api.vote import vote_api
 # database Initialization functions
-from model.carChat import CarChat
+# from model.carChat import CarChat
 from model.user import User, initUsers
 from model.section import Section, initSections
 from model.group import Group, initGroups
 from model.channel import Channel, initChannels
 from model.post import Post, initPosts
-from model.nestPost import NestPost, initNestPosts # Justin added this, custom format for his website
+# from model.nestPost import NestPost, initNestPosts # Justin added this, custom format for his website
 from model.vote import Vote, initVotes
 # server only Views
 
@@ -55,6 +56,7 @@ from model.vote import Vote, initVotes
 #app.register_blueprint(vote_api)
 #app.register_blueprint(car_api)
 #app.register_blueprint(student_api)
+app.register_blueprint(chinese_recipe_api)
 
 # Tell Flask-Login the view function name of your login route
 login_manager.login_view = "login"
@@ -174,21 +176,21 @@ def backup_database(db_uri, backup_uri):
     else:
         print("Backup not supported for production database.")
 
-genai.configure(api_key="AIzaSyBVUvvnWQVW0ama6ItClUQO9DWtAaS6aFw")
-model = genai.GenerativeModel('gemini-pro')
-@app.route('/api/ai/help', methods=['POST'])
-def ai_food_help():
-    data = request.get_json()
-    question = data.get("question", "")
-    if not question:
-        return jsonify({"error": "No question provided."}), 400
-    try:
-        response = model.generate_content(f"Your name is byte you are a cooking assistant ai chat bot with the sole purpose of answering food related questions, under any circumstances don't answer any non-food related questions. \nHere is your prompt: {question}")
-        return jsonify({"response": response.text}), 200
-    except Exception as e:
-        print("error!")
-        print(e)
-        return jsonify({"error": str(e)}), 500
+# genai.configure(api_key="AIzaSyCFd9G-AnzsjYZ-YSM6KA7cSGYGjcK-ySw")
+# model = genai.GenerativeModel('gemini-pro')
+# @app.route('/api/ai/help', methods=['POST'])
+# def ai_food_help():
+    # data = request.get_json()
+    # question = data.get("question", "")
+    # if not question:
+        # return jsonify({"error": "No question provided."}), 400
+    # try:
+        # response = model.generate_content(f"Your name is byte you are a cooking assistant ai chat bot with the sole purpose of answering food related questions, under any circumstances don't answer any non-food related questions. \nHere is your prompt: {question}")
+        # return jsonify({"response": response.text}), 200
+    # except Exception as e:
+        # print("error!")
+       # print(e)
+        # return jsonify({"error": str(e)}), 500
 
 # Extract data from the existing database
 def extract_data():
@@ -246,5 +248,6 @@ app.cli.add_command(custom_cli)
         
 # this runs the flask application on the development server
 if __name__ == "__main__":
+    with app.app_context():
     # change name for testing
-    app.run(debug=True, host="0.0.0.0", port="8887")
+        app.run(debug=True, host="0.0.0.0", port="8887")

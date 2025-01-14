@@ -1,11 +1,10 @@
 from flask import Blueprint, jsonify
 from flask_restful import Api, Resource # used for REST API building
 
-chinese_recipe_api = Blueprint('chinese_recipe_api', __name__,
-                   url_prefix='/api')
+chinese_recipe_api = Blueprint('chinese_recipe_api', __name__, url_prefix='/api')
 
 # API docs https://flask-restful.readthedocs.io/en/latest/
-api = Api(recipe_api)
+api = Api(chinese_recipe_api)
 
 class chinese_recipe_API:
     @staticmethod
@@ -456,7 +455,6 @@ api.add_resource(chinese_recipe_API._LambWithBlackBeanSauce, '/chinese_recipe/La
 api.add_resource(chinese_recipe_API._SzechuanLamb, '/chinese_recipe/SzechuanLamb')
 api.add_resource(chinese_recipe_API._LambWithVegetablesStirFry, '/chinese_recipe/LambWithVegetablesStirFry')
 api.add_resource(chinese_recipe_API._LambCurry, '/chinese_recipe/LambCurry')
-
 
 # Instantiate the StudentAPI to register the endpoints
 chinese_recipe_api_instance = chinese_recipe_API()

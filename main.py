@@ -174,7 +174,7 @@ def backup_database(db_uri, backup_uri):
     else:
         print("Backup not supported for production database.")
 
-genai.configure(api_key="AIzaSyCFd9G-AnzsjYZ-YSM6KA7cSGYGjcK-ySw")
+genai.configure(api_key="AIzaSyBVUvvnWQVW0ama6ItClUQO9DWtAaS6aFw")
 model = genai.GenerativeModel('gemini-pro')
 @app.route('/api/ai/help', methods=['POST'])
 def ai_food_help():

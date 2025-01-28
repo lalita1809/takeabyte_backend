@@ -29,6 +29,8 @@ from api.user import user_api
 #from api.carChat import car_chat_api
 #from api.student import student_api
 from api.chinese_recipes import chinese_recipe_api
+from api.natcountrygen import dish_api
+from api.natcountrysearch import country_api
 
 #from api.vote import vote_api
 # database Initialization functions
@@ -40,6 +42,8 @@ from model.channel import Channel, initChannels
 from model.post import Post, initPosts
 # from model.nestPost import NestPost, initNestPosts # Justin added this, custom format for his website
 from model.vote import Vote, initVotes
+from model.natcountrygen import Dish ,initDishes
+from model.natcountrysearch import CountryDish, initCountryDishes
 # server only Views
 
 # register URIs for api endpoints
@@ -58,6 +62,9 @@ from model.vote import Vote, initVotes
 #app.register_blueprint(car_api)
 #app.register_blueprint(student_api)
 app.register_blueprint(chinese_recipe_api)
+app.register_blueprint(dish_api)
+app.register_blueprint(country_api)
+
 
 # Tell Flask-Login the view function name of your login route
 login_manager.login_view = "login"
@@ -161,9 +168,11 @@ def generate_data():
     initUsers()
     initSections()
     initGroups()
-    initChannels()
+#    initChannels()
     initPosts()
     initVotes()
+    initDishes()
+    initCountryDishes
     
 # Backup the old database
 def backup_database(db_uri, backup_uri):
@@ -201,6 +210,8 @@ def extract_data():
         data['groups'] = [group.read() for group in Group.query.all()]
         data['channels'] = [channel.read() for channel in Channel.query.all()]
         data['posts'] = [post.read() for post in Post.query.all()]
+        data['Dishes'] = [dish.read() for dish in Dish.query.all()]
+        data['CountryDishes'] = [CountryDish() for CountryDish in CountryDish.query.all()]
     return data
 
 # Save extracted data to JSON files
@@ -215,7 +226,7 @@ def save_data_to_json(data, directory='backup'):
 # Load data from JSON files
 def load_data_from_json(directory='backup'):
     data = {}
-    for table in ['users', 'sections', 'groups', 'channels', 'posts']:
+    for table in ['users', 'sections', 'groups', 'channels', 'posts', 'dishes', 'country_dishes']:
         with open(os.path.join(directory, f'{table}.json'), 'r') as f:
             data[table] = json.load(f)
     return data
@@ -228,6 +239,8 @@ def restore_data(data):
         _ = Group.restore(data['groups'], users)
         _ = Channel.restore(data['channels'])
         _ = Post.restore(data['posts'])
+        _ = Dish.restore(data['dishes'])
+        _ = CountryDish.restore(data['country_dishes'])
     print("Data restored to the new database.")
 
 # Define a command to backup data

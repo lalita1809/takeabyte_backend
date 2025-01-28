@@ -140,7 +140,6 @@ class indian_recipe_API:
         return recipes.get(name)
 
 
-
 class _ButterChicken(Resource):
     def get(self):
         recipe = indian_recipe_API.get_chicken_recipe("Butter Chicken")

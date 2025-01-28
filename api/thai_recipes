@@ -1,9 +1,10 @@
-from flask import Flask, jsonify
-from flask_restful import Api, Resource
+from flask import Blueprint, jsonify
+from flask_restful import Api, Resource # used for REST API building
 
-app = Flask(__name__)
-api = Api(app)
+thai_recipe_api = Blueprint('thai_recipe_api', __name__, url_prefix='/api')
 
+# API docs https://flask-restful.readthedocs.io/en/latest/
+api = Api(thai_recipe_api)
 class thai_recipe_API:
     @staticmethod
     def get_chicken_recipe(name):

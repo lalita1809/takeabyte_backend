@@ -30,7 +30,6 @@ from api.user import user_api
 #from api.carChat import car_chat_api
 #from api.student import student_api
 from api.chinese_recipes import chinese_recipe_api
-from api.indian_recipes import indian_recipe_api
 from api.thai_recipes import thai_recipe_api
 from api.italian_recipes import italian_recipe_api
 from api.mexican_recipes import mexican_recipe_api

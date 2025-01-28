@@ -1,63 +1,56 @@
-# imports from flask
-from cmath import e
 import json
 import os
 from urllib.parse import urljoin, urlparse
-from flask import abort, redirect, render_template, request, send_from_directory, url_for, jsonify  # import render_template from "public" flask libraries
+from flask import abort, redirect, render_template, request, send_from_directory, url_for, jsonify, Blueprint
 from flask_login import current_user, login_user, logout_user
 from flask.cli import AppGroup
 from flask_login import current_user, login_required
 from flask import current_app
 from werkzeug.security import generate_password_hash
 import shutil
-import google.generativeai as genai
+from flask import Flask
+from api.fridge import fridge_api
 
-
-# import "objects" from "this" project
-from __init__ import app, db, login_manager  # Key Flask objects   # Import the chinese_recipe_api
+# Import "objects" from "this" project
+from __init__ import app, db, login_manager  # Key Flask objects
 # API endpoints
-from api.user import user_api 
-#from api.pfp import pfp_api
-#from api.nestImg import nestImg_api # Justin added this, custom format for his website
-#from api.post import post_api
-#from api.channel import channel_api
-#from api.group import group_api
-#from api.section import section_api
-#from api.nestPost import nestPost_api # Justin added this, custom format for his website
-#from api.messages_api import messages_api # Adi added this, messages for his website
-#from api.carphoto import car_api
-#from api.carChat import car_chat_api
-#from api.student import student_api
-from api.chinese_recipes import chinese_recipe_api
+from api.user import user_api
+from api.pfp import pfp_api
+from api.nestImg import nestImg_api
+from api.post import post_api
+from api.channel import channel_api
+from api.group import group_api
+from api.section import section_api
+from api.nestPost import nestPost_api
+from api.messages_api import messages_api
+from api.fridge import fridge_api
+from api.vote import vote_api
 
-#from api.vote import vote_api
-# database Initialization functions
-# from model.carChat import CarChat
+# Database Initialization functions
+from model.carChat import CarChat
 from model.user import User, initUsers
 from model.section import Section, initSections
 from model.group import Group, initGroups
 from model.channel import Channel, initChannels
 from model.post import Post, initPosts
-# from model.nestPost import NestPost, initNestPosts # Justin added this, custom format for his website
+from model.nestPost import NestPost, initNestPosts
 from model.vote import Vote, initVotes
-# server only Views
+from model.fridge import Fridge, initFridge
 
-# register URIs for api endpoints
-#app.register_blueprint(messages_api) # Adi added this, messages for his website
-#app.register_blueprint(user_api)
-#app.register_blueprint(pfp_api) 
-#app.register_blueprint(post_api)
-#app.register_blueprint(channel_api)
-#app.register_blueprint(group_api)
-#app.register_blueprint(section_api)
-#app.register_blueprint(car_chat_api)
-# Added new files to create nestPosts, uses a different format than Mortensen and didn't want to touch his junk
-#app.register_blueprint(nestPost_api)
-#app.register_blueprint(nestImg_api)
-#app.register_blueprint(vote_api)
-#app.register_blueprint(car_api)
-#app.register_blueprint(student_api)
-app.register_blueprint(chinese_recipe_api)
+# Server only Views
+
+# Register URIs for API endpoints
+app.register_blueprint(messages_api)
+app.register_blueprint(user_api)
+app.register_blueprint(pfp_api)
+app.register_blueprint(post_api)
+app.register_blueprint(channel_api)
+app.register_blueprint(group_api)
+app.register_blueprint(section_api)
+app.register_blueprint(nestPost_api)
+app.register_blueprint(nestImg_api)
+app.register_blueprint(vote_api)
+app.register_blueprint(fridge_api, url_prefix='/api')
 
 # Tell Flask-Login the view function name of your login route
 login_manager.login_view = "login"
@@ -66,7 +59,7 @@ login_manager.login_view = "login"
 def unauthorized_callback():
     return redirect(url_for('login', next=request.path))
 
-# register URIs for server pages
+# Register URIs for server pages
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -101,12 +94,11 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
-@app.errorhandler(404)  # catch for URL not found
+@app.errorhandler(404)  # Catch for URL not found
 def page_not_found(e):
-    # note that we set the 404 status explicitly
     return render_template('404.html'), 404
 
-@app.route('/')  # connects default URL to index() function
+@app.route('/')  # Connects default URL to index() function
 def index():
     print("Home:", current_user)
     return render_template("index.html")
@@ -127,7 +119,7 @@ def u2table():
 @app.route('/uploads/<path:filename>')
 def uploaded_file(filename):
     return send_from_directory(current_app.config['UPLOAD_FOLDER'], filename)
- 
+
 @app.route('/users/delete/<int:user_id>', methods=['DELETE'])
 @login_required
 def delete_user(user_id):
@@ -161,10 +153,11 @@ def generate_data():
     initUsers()
     initSections()
     initGroups()
-    initChannels()
     initPosts()
+    initNestPosts()
     initVotes()
-    
+    initFridge()
+
 # Backup the old database
 def backup_database(db_uri, backup_uri):
     """Backup the current database."""
@@ -176,31 +169,16 @@ def backup_database(db_uri, backup_uri):
     else:
         print("Backup not supported for production database.")
 
-genai.configure(api_key="AIzaSyCFd9G-AnzsjYZ-YSM6KA7cSGYGjcK-ySw")
-model = genai.GenerativeModel('gemini-pro')
-@app.route('/api/ai/help', methods=['POST'])
-def ai_food_help():
-    data = request.get_json()
-    question = data.get("question", "")
-    if not question:
-        return jsonify({"error": "No question provided."}), 400
-    try:
-        response = model.generate_content(f"Your name is byte you are a cooking assistant ai chat bot with the sole purpose of answering food related questions, under any circumstances don't answer any non-food related questions. \nHere is your prompt: {question}")
-        return jsonify({"response": response.text}), 200
-    except Exception as e:
-        print("error!")
-        print(e)
-        return jsonify({"error": str(e)}), 500
-
 # Extract data from the existing database
 def extract_data():
     data = {}
     with app.app_context():
         data['users'] = [user.read() for user in User.query.all()]
-        data['sections'] = [section.read() for section in Section.query.all()]
+        data['sections'] =  [section.read() for section in Section.query.all()]
         data['groups'] = [group.read() for group in Group.query.all()]
         data['channels'] = [channel.read() for channel in Channel.query.all()]
         data['posts'] = [post.read() for post in Post.query.all()]
+        data['fridge'] = [fridge.read() for fridge in Fridge.query.all()]
     return data
 
 # Save extracted data to JSON files
@@ -215,7 +193,7 @@ def save_data_to_json(data, directory='backup'):
 # Load data from JSON files
 def load_data_from_json(directory='backup'):
     data = {}
-    for table in ['users', 'sections', 'groups', 'channels', 'posts']:
+    for table in ['users', 'sections', 'groups', 'channels', 'posts', 'fridge']:
         with open(os.path.join(directory, f'{table}.json'), 'r') as f:
             data[table] = json.load(f)
     return data
@@ -227,7 +205,8 @@ def restore_data(data):
         _ = Section.restore(data['sections'])
         _ = Group.restore(data['groups'], users)
         _ = Channel.restore(data['channels'])
-        _ = Post.restore(data['posts'])
+        _ = Fridge.restore(data['fridge'])
+
     print("Data restored to the new database.")
 
 # Define a command to backup data
@@ -242,12 +221,10 @@ def backup_data():
 def restore_data_command():
     data = load_data_from_json()
     restore_data(data)
-    
+
 # Register the custom command group with the Flask application
 app.cli.add_command(custom_cli)
-        
-# this runs the flask application on the development server
+
+# This runs the Flask application on the development server
 if __name__ == "__main__":
-    with app.app_context():
-    # change name for testing
-        app.run(debug=True, host="0.0.0.0", port="8887")
+    app.run(debug=True, host="0.0.0.0", port="8887")

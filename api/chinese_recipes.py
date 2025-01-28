@@ -421,7 +421,7 @@ class chinese_recipe_API:
             if recipe:
                 return jsonify(recipe)
             return {"Data not found"}, 404
-
+        
 api.add_resource(chinese_recipe_API._KungPaoChicken, '/chinese_recipe/KungPaoChicken')
 api.add_resource(chinese_recipe_API._OrangeChicken, '/chinese_recipe/OrangeChicken')
 api.add_resource(chinese_recipe_API._LemonChicken, '/chinese_recipe/LemonChicken')

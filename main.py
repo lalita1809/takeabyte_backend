@@ -6,7 +6,7 @@ from urllib.parse import urljoin, urlparse
 from flask import abort, redirect, render_template, request, send_from_directory, url_for, jsonify  # import render_template from "public" flask libraries
 from flask_login import current_user, login_user, logout_user
 from flask.cli import AppGroup
-from flask_login import current_user, login_required
+from flask_login import current_user, login_required, login_manager
 from flask import current_app
 from werkzeug.security import generate_password_hash
 import shutil
@@ -14,7 +14,8 @@ import google.generativeai as genai
 
 
 # import "objects" from "this" project
-from __init__ import app, db, login_manager  # Key Flask objects   # Import the chinese_recipe_api
+from __init__ import app, db, login_manager # Key Flask objects   # Import the chinese_recipe_api
+from model.recipe import initRecipe
 # API endpoints
 from api.user import user_api 
 #from api.pfp import pfp_api
@@ -29,6 +30,11 @@ from api.user import user_api
 #from api.carChat import car_chat_api
 #from api.student import student_api
 from api.chinese_recipes import chinese_recipe_api
+from api.indian_recipes import indian_recipe_api
+from api.thai_recipes import thai_recipe_api
+from api.italian_recipes import italian_recipe_api
+from api.mexican_recipes import mexican_recipe_api
+from api.japanese_recipes import japanese_recipe_api
 from api.natcountrygen import dish_api
 from api.natcountrysearch import country_api
 
@@ -42,8 +48,6 @@ from model.channel import Channel, initChannels
 from model.post import Post, initPosts
 # from model.nestPost import NestPost, initNestPosts # Justin added this, custom format for his website
 from model.vote import Vote, initVotes
-from model.natcountrygen import Dish ,initDishes
-from model.natcountrysearch import CountryDish, initCountryDishes
 # server only Views
 
 # register URIs for api endpoints
@@ -62,9 +66,6 @@ from model.natcountrysearch import CountryDish, initCountryDishes
 #app.register_blueprint(car_api)
 #app.register_blueprint(student_api)
 app.register_blueprint(chinese_recipe_api)
-app.register_blueprint(dish_api)
-app.register_blueprint(country_api)
-
 
 # Tell Flask-Login the view function name of your login route
 login_manager.login_view = "login"
@@ -165,6 +166,7 @@ custom_cli = AppGroup('custom', help='Custom commands')
 # Define a command to run the data generation functions
 @custom_cli.command('generate_data')
 def generate_data():
+    initRecipe()
     initUsers()
     initSections()
     initGroups()
@@ -262,5 +264,4 @@ app.cli.add_command(custom_cli)
 # this runs the flask application on the development server
 if __name__ == "__main__":
     with app.app_context():
-    # change name for testing
-        app.run(debug=True, host="127.0.0.1", port="8887")
+        app.run(debug=True, host="0.0.0.0", port="8887")

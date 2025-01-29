@@ -1,5 +1,7 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, request, jsonify, current_app, Response, g
 from flask_restful import Api, Resource # used for REST API building
+from model.student import Student
+
 
 student_api = Blueprint('student_api', __name__,
                    url_prefix='/api')
@@ -9,7 +11,7 @@ api = Api(student_api)
 
 class StudentAPI:
     @staticmethod
-    def get_student(name):
+    def get_student(name): 
         students = {
             "Ahmad": {
                 "name": "Ahmad",
@@ -18,7 +20,7 @@ class StudentAPI:
                 "favorite_color": "Blue",
             },
             "Nathan": {
-                "name": "Nathaan Tejidor",
+                "name": "Nathan Tejidor",
                 "age": 16,
                 "grade": "Sophomore",
                 "favorite_color": "Red",
@@ -85,6 +87,89 @@ class StudentAPI:
             if student:
                 return jsonify(student) 
             return {"Data not found"}, 404
+    
+    class _addStudent(Resource):
+        def post(self):
+            """
+            Create a new Student.
+            """
+            body = request.get_json()
+
+            # Validate name
+            name = body.get('name')
+            if name is None or len(name) < 2:
+                return {'message': 'Name is missing, or is less than 2 characters'}, 400
+
+            age = body.get('age')
+            if age is None:
+                return {'message': 'Age is missing'}, 400
+            
+            grade = body.get('grade')
+            if grade is None:
+                return {'message': 'Grade is missing'}, 400
+            
+            favorite_color = body.get('favorite_color')
+            if favorite_color is None or len(favorite_color) < 2:
+                return {'message': 'Favorite Color is missing, or is less than 2 characters'}, 400
+
+            # Setup minimal Student OBJECT
+            student_obj = Student(name=name, age=age, grade=grade, favorite_color=favorite_color)
+
+            # Add user to database
+            student = student_obj.create()  # pass the body elements to be saved in the database
+            if not student:  # failure returns error message
+                return {'message': f'Processed {name}'}, 400
+            return jsonify(student.read())
+    class _Read(Resource):
+        def get(self, name):
+            """
+            Retrieve a single student by their name.
+            """
+            try:
+                # Query the database for a student with the specified name
+                student = Student.query.filter_by(name=name).first()
+
+                # If no student is found, return a 404 error
+                if not student:
+                    return {'message': f'Student with name "{name}" not found'}, 404
+
+                # Return the serialized student data
+                return jsonify(student.read())
+            except Exception as e:
+                return {'message': f'Error retrieving student: {str(e)}'}, 500
+    class _ReadGeneral(Resource):
+        def get(self):
+            """
+            Retrieve a single student by their name.
+            """
+            try:
+                # Query all students from the database
+                students = Student.query.all()
+
+                # Use the model's read method or create a list of serialized data
+                student_data = [student.read() for student in students]
+
+                # Return the serialized student data
+                return jsonify(student_data)
+            except Exception as e:
+                return {'message': f'Error retrieving student: {str(e)}'}, 500
+    class _Update(Resource):
+        def put(self):
+            data = request.get_json()  # Parse JSON from the request body
+            if not data:
+                return jsonify({"message": "Invalid input"}), 400
+
+            name = data.get("name", "")
+            student = Student.query.filter_by(name=name).first()  # Find the student by name
+            if not student:
+                return jsonify({"message": "Student not found"}), 404
+
+            # Call the update method of the Student model
+            updated_student = student.update(data)
+            if updated_student:
+                return jsonify({"name": updated_student.name}), 200
+            else:
+                return jsonify({"message": "Failed to update student"}), 500
 
     
 
@@ -95,6 +180,12 @@ api.add_resource(StudentAPI._lalita, '/student/lalita')
 api.add_resource(StudentAPI._yuva, '/student/yuva')
 api.add_resource(StudentAPI._nathan, '/student/nathan')
 api.add_resource(StudentAPI._ahmad, '/student/ahmad')
+api.add_resource(StudentAPI._addStudent, '/student/add')
+api.add_resource(StudentAPI._Read, '/studentGet/<string:name>')
+api.add_resource(StudentAPI._ReadGeneral, '/studentGet/')
+api.add_resource(StudentAPI._Update, '/student/update')
+
+
 
 
 # Instantiate the StudentAPI to register the endpoints

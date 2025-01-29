@@ -15,7 +15,6 @@ import google.generativeai as genai
 
 # import "objects" from "this" project
 from __init__ import app, db, login_manager # Key Flask objects   # Import the chinese_recipe_api
-from model.recipe import initRecipe
 # API endpoints
 from api.user import user_api 
 #from api.pfp import pfp_api
@@ -48,6 +47,7 @@ from model.channel import Channel, initChannels
 from model.post import Post, initPosts
 # from model.nestPost import NestPost, initNestPosts # Justin added this, custom format for his website
 from model.vote import Vote, initVotes
+from model.chinese_recipes import Recipe, initRecipes
 # server only Views
 
 # register URIs for api endpoints
@@ -174,7 +174,7 @@ custom_cli = AppGroup('custom', help='Custom commands')
 # Define a command to run the data generation functions
 @custom_cli.command('generate_data')
 def generate_data():
-    initRecipe()
+    initRecipes()
     initUsers()
     initSections()
     initGroups()
@@ -251,6 +251,7 @@ def restore_data(data):
         _ = Post.restore(data['posts'])
         _ = Dish.restore(data['dishes'])
         _ = CountryDish.restore(data['country_dishes'])
+        _ = chinese_recipes.restore(data['recipe'])
     print("Data restored to the new database.")
 
 # Define a command to backup data

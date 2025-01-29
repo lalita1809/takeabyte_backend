@@ -225,6 +225,15 @@ def save_recipe_route():
         return jsonify({"message": "Recipe saved successfully", "recipe": recipe.read()}), 201
     else:
         return jsonify({"error": "Recipe could not be created"}), 400
+    
+@app.route('/get_recipes', methods=['GET'])
+def get_recipes():
+    try:
+        recipes = Recipe.query.all()  # Fetch all recipes
+        recipes_list = [recipe.read() for recipe in recipes]  # Convert to list of dicts
+        return jsonify(recipes_list), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 # Extract data from the existing database

@@ -47,7 +47,7 @@ from model.channel import Channel, initChannels
 from model.post import Post, initPosts
 # from model.nestPost import NestPost, initNestPosts # Justin added this, custom format for his website
 from model.vote import Vote, initVotes
-from model.chinese_recipes import Recipe, initRecipes
+from model.chinese_recipes import Recipe, initRecipes, save_recipe
 # server only Views
 
 # register URIs for api endpoints
@@ -210,6 +210,22 @@ def ai_food_help():
         print("error!")
         print(e)
         return jsonify({"error": str(e)}), 500
+    
+@app.route('/api/chinese_recipe/save_recipe', methods=['POST'])
+def save_recipe_route():
+    data = request.get_json()
+    name = data.get('name')
+    dish = data.get('dish')
+    time = data.get('time')
+    ingredients = data.get('ingredients')
+    instructions = data.get('instructions')
+    
+    recipe = save_recipe(name, dish, time, ingredients, instructions)
+    if recipe:
+        return jsonify({"message": "Recipe saved successfully", "recipe": recipe.read()}), 201
+    else:
+        return jsonify({"error": "Recipe could not be created"}), 400
+
 
 # Extract data from the existing database
 def extract_data():
@@ -222,6 +238,7 @@ def extract_data():
         data['posts'] = [post.read() for post in Post.query.all()]
         data['Dishes'] = [dish.read() for dish in Dish.query.all()]
         data['CountryDishes'] = [CountryDish() for CountryDish in CountryDish.query.all()]
+        data['recipe'] = [recipe.read() for recipe in Recipe.query.all()]
     return data
 
 # Save extracted data to JSON files
@@ -251,7 +268,7 @@ def restore_data(data):
         _ = Post.restore(data['posts'])
         _ = Dish.restore(data['dishes'])
         _ = CountryDish.restore(data['country_dishes'])
-        _ = chinese_recipes.restore(data['recipe'])
+        _ = Recipe.restore(data['recipe'])
     print("Data restored to the new database.")
 
 # Define a command to backup data

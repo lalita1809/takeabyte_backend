@@ -105,3 +105,7 @@ def initRecipes():
             except IntegrityError:
                 db.session.remove()
                 print(f"Records exist, duplicate name, or error: {recipe._name}")
+                
+def save_recipe(name, dish, time, ingredients, instructions):
+    new_recipe = Recipe(name=name, dish=dish, time=time, ingredients=ingredients, instructions=instructions)
+    return new_recipe.create()

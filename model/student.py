@@ -73,6 +73,20 @@ class Student(db.Model):
             db.session.rollback()
             return None
         return self
+    
+    def delete(self):
+        """
+        Removes the user object from the database and commits the transaction.
+        
+        Returns:
+            None
+        """
+        try:
+            db.session.delete(self)
+            db.session.commit()
+        except IntegrityError:
+            db.session.rollback()
+        return None   
 
     def restore(data):
         students = {}

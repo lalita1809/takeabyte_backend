@@ -234,6 +234,19 @@ def get_recipes():
         return jsonify(recipes_list), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+@app.route('/api/chinese_recipe/delete_recipe/<int:recipe_id>', methods=['DELETE'])
+def delete_recipe(recipe_id):
+    try:
+        # Fetch the recipe by ID
+        recipe = Recipe.query.get(recipe_id)
+        if recipe:
+            recipe.delete()  # Assuming you have a delete method in your Recipe model
+            return jsonify({"message": "Recipe deleted successfully"}), 200
+        else:
+            return jsonify({"error": "Recipe not found"}), 404
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 # Extract data from the existing database

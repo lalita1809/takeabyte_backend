@@ -48,6 +48,7 @@ from model.post import Post, initPosts
 # from model.nestPost import NestPost, initNestPosts # Justin added this, custom format for his website
 from model.vote import Vote, initVotes
 from model.chinese_recipes import Recipe, initRecipes, save_recipe
+from model.student import Student, initStudentData
 # server only Views
 
 # register URIs for api endpoints
@@ -64,7 +65,7 @@ from model.chinese_recipes import Recipe, initRecipes, save_recipe
 #app.register_blueprint(nestImg_api)
 #app.register_blueprint(vote_api)
 #app.register_blueprint(car_api)
-#app.register_blueprint(student_api)
+app.register_blueprint(student_api)
 app.register_blueprint(chinese_recipe_api)
 app.register_blueprint(indian_recipe_api)
 app.register_blueprint(thai_recipe_api)
@@ -175,6 +176,7 @@ custom_cli = AppGroup('custom', help='Custom commands')
 @custom_cli.command('generate_data')
 def generate_data():
     initRecipes()
+    initStudentData()
     initUsers()
     initSections()
     initGroups()
@@ -263,6 +265,8 @@ def extract_data():
         data['Dishes'] = [dish.read() for dish in Dish.query.all()]
         data['CountryDishes'] = [CountryDish() for CountryDish in CountryDish.query.all()]
         data['recipe'] = [recipe.read() for recipe in Recipe.query.all()]
+        data['students'] = [student.read() for student in Student.query.all()]
+        
     return data
 
 # Save extracted data to JSON files
@@ -277,7 +281,7 @@ def save_data_to_json(data, directory='backup'):
 # Load data from JSON files
 def load_data_from_json(directory='backup'):
     data = {}
-    for table in ['users', 'sections', 'groups', 'channels', 'posts', 'dishes', 'country_dishes']:
+    for table in ['users', 'sections', 'groups', 'channels', 'posts', 'dishes', 'country_dishes', 'students' ]:
         with open(os.path.join(directory, f'{table}.json'), 'r') as f:
             data[table] = json.load(f)
     return data
@@ -293,6 +297,7 @@ def restore_data(data):
         _ = Dish.restore(data['dishes'])
         _ = CountryDish.restore(data['country_dishes'])
         _ = Recipe.restore(data['recipe'])
+        _ = Student.restore(data['students'])
     print("Data restored to the new database.")
 
 # Define a command to backup data

@@ -35,38 +35,38 @@ class italian_recipe_API:
             "Chicken Parmesan": {
                 "dish": "Chicken Parmesan",
                 "time": 60,
-                "ingredients": ["chicken", "breadcrumbs", "parmesan", "tomato sauce", "mozzarella"],
-                "instructions": "Bread and fry chicken, top with tomato sauce and cheese, bake."
+                "ingredients": ["4 boneless chicken breasts", "1 cup breadcrumbs", "1/2 cup grated parmesan", "2 cups tomato sauce", "1 cup shredded mozzarella"],
+                "instructions": "Bread and fry chicken in breadcrumbs, top with tomato sauce and shredded mozzarella cheese, bake at 375°F for 20 minutes until golden and bubbly."
             },
             "Chicken Alfredo": {
                 "dish": "Chicken Alfredo",
                 "time": 30,
-                "ingredients": ["chicken", "fettuccine", "cream", "parmesan", "butter"],
-                "instructions": "Cook chicken, prepare Alfredo sauce with cream and parmesan, mix with pasta."
+                "ingredients": ["4 boneless chicken breasts", "12 oz fettuccine pasta", "1 cup heavy cream", "1/2 cup grated parmesan", "2 tbsp butter"],
+                "instructions": "Cook chicken breasts in butter, slice them thinly. Prepare Alfredo sauce with cream and parmesan, toss with cooked fettuccine."
             },
             "Chicken Marsala": {
                 "dish": "Chicken Marsala",
                 "time": 40,
-                "ingredients": ["chicken", "mushrooms", "marsala wine", "butter", "garlic"],
-                "instructions": "Cook chicken with mushrooms and garlic, deglaze with Marsala wine."
+                "ingredients": ["4 boneless chicken breasts", "1 cup sliced mushrooms", "3/4 cup Marsala wine", "2 tbsp butter", "2 cloves garlic (minced)"],
+                "instructions": "Cook chicken breasts in butter, sauté mushrooms and garlic. Deglaze with Marsala wine, reduce sauce, and serve over chicken."
             },
             "Chicken Piccata": {
                 "dish": "Chicken Piccata",
                 "time": 35,
-                "ingredients": ["chicken", "lemon", "capers", "butter", "white wine"],
-                "instructions": "Cook chicken, make sauce with lemon, capers, butter, and white wine."
+                "ingredients": ["4 boneless chicken breasts", "1 lemon (sliced)", "2 tbsp capers", "2 tbsp butter", "1/4 cup white wine"],
+                "instructions": "Cook chicken in butter until golden, make sauce by adding lemon, capers, white wine, and butter. Simmer and serve."
             },
             "Chicken Cacciatore": {
                 "dish": "Chicken Cacciatore",
                 "time": 75,
-                "ingredients": ["chicken", "tomatoes", "bell peppers", "onions", "mushrooms"],
-                "instructions": "Simmer chicken with tomatoes, bell peppers, onions, and mushrooms."
+                "ingredients": ["4 chicken thighs", "2 large tomatoes (chopped)", "1 bell pepper (chopped)", "1 onion (chopped)", "1 cup sliced mushrooms"],
+                "instructions": "Simmer chicken with tomatoes, bell peppers, onions, mushrooms, and garlic until chicken is tender and sauce has thickened."
             },
             "Chicken Risotto": {
                 "dish": "Chicken Risotto",
                 "time": 50,
-                "ingredients": ["chicken", "arborio rice", "chicken broth", "parmesan", "white wine"],
-                "instructions": "Cook chicken, prepare risotto with arborio rice, chicken broth, and parmesan."
+                "ingredients": ["2 boneless chicken breasts", "1 cup arborio rice", "3 cups chicken broth", "1/2 cup grated parmesan", "1/4 cup white wine"],
+                "instructions": "Cook chicken, slice thinly. Prepare risotto by simmering arborio rice in chicken broth and wine, stir in parmesan and sliced chicken."
             }
         }
         return recipes.get(name)
@@ -77,38 +77,38 @@ class italian_recipe_API:
             "Beef Lasagna": {
                 "dish": "Beef Lasagna",
                 "time": 90,
-                "ingredients": ["beef", "lasagna noodles", "ricotta", "tomato sauce", "mozzarella"],
-                "instructions": "Layer beef, noodles, ricotta, and tomato sauce, top with mozzarella, bake."
+                "ingredients": ["1 lb ground beef", "12 lasagna noodles", "1 1/2 cups ricotta cheese", "3 cups tomato sauce", "2 cups mozzarella cheese"],
+                "instructions": "Layer cooked noodles, beef, ricotta, and tomato sauce in a baking dish, top with mozzarella, and bake at 375°F for 30 minutes."
             },
             "Spaghetti Bolognese": {
                 "dish": "Spaghetti Bolognese",
                 "time": 60,
-                "ingredients": ["beef", "spaghetti", "tomato sauce", "carrots", "celery", "onions"],
-                "instructions": "Simmer beef with tomato sauce and vegetables, serve over spaghetti."
+                "ingredients": ["1 lb ground beef", "12 oz spaghetti", "2 cups tomato sauce", "1 carrot (chopped)", "1 celery stalk (chopped)", "1 onion (chopped)"],
+                "instructions": "Simmer beef with tomato sauce and chopped vegetables, serve over cooked spaghetti."
             },
             "Beef Braciole": {
                 "dish": "Beef Braciole",
                 "time": 120,
-                "ingredients": ["beef", "breadcrumbs", "parmesan", "tomato sauce", "garlic"],
-                "instructions": "Roll beef with breadcrumbs and cheese, simmer in tomato sauce."
+                "ingredients": ["1 lb beef flank steak", "1/2 cup breadcrumbs", "1/4 cup grated parmesan", "2 cups tomato sauce", "2 cloves garlic (minced)"],
+                "instructions": "Roll beef with breadcrumbs and cheese, sear, then simmer in tomato sauce until tender."
             },
             "Beef Florentine": {
                 "dish": "Beef Florentine",
                 "time": 45,
-                "ingredients": ["beef", "spinach", "cream", "garlic", "parmesan"],
-                "instructions": "Cook beef, prepare Florentine sauce with spinach, cream, and parmesan."
+                "ingredients": ["1 lb beef sirloin", "2 cups fresh spinach", "1/2 cup cream", "2 cloves garlic (minced)", "1/2 cup grated parmesan"],
+                "instructions": "Cook beef and garlic, add spinach and cream, simmer and serve with parmesan."
             },
             "Beef Ossobuco": {
                 "dish": "Beef Ossobuco",
                 "time": 120,
-                "ingredients": ["beef shanks", "carrots", "celery", "onions", "tomato sauce"],
-                "instructions": "Braise beef shanks with vegetables and tomato sauce."
+                "ingredients": ["2 beef shanks", "2 carrots (chopped)", "2 celery stalks (chopped)", "1 onion (chopped)", "1 1/2 cups tomato sauce"],
+                "instructions": "Braise beef shanks with vegetables and tomato sauce in a slow-cooked oven until tender."
             },
             "Beef Risotto": {
                 "dish": "Beef Risotto",
                 "time": 50,
-                "ingredients": ["beef", "arborio rice", "beef broth", "parmesan", "red wine"],
-                "instructions": "Cook beef, prepare risotto with arborio rice, beef broth, and parmesan."
+                "ingredients": ["1 lb beef", "1 cup arborio rice", "3 cups beef broth", "1/2 cup grated parmesan", "1/4 cup red wine"],
+                "instructions": "Cook beef, prepare risotto with rice, broth, and red wine, stir in parmesan and beef."
             }
         }
         return recipes.get(name)
@@ -119,38 +119,38 @@ class italian_recipe_API:
             "Vegan Spaghetti": {
                 "dish": "Vegan Spaghetti",
                 "time": 30,
-                "ingredients": ["spaghetti", "tomato sauce", "garlic", "basil", "olive oil"],
-                "instructions": "Cook spaghetti, prepare tomato sauce with garlic and basil."
+                "ingredients": ["12 oz spaghetti", "2 cups tomato sauce", "2 cloves garlic (minced)", "1/4 cup fresh basil (chopped)", "2 tbsp olive oil"],
+                "instructions": "Cook spaghetti, sauté garlic in olive oil, add tomato sauce and basil, mix with pasta."
             },
             "Vegan Lasagna": {
                 "dish": "Vegan Lasagna",
                 "time": 70,
-                "ingredients": ["lasagna noodles", "vegan ricotta", "tomato sauce", "spinach", "vegan cheese"],
-                "instructions": "Layer noodles, vegan ricotta, tomato sauce, spinach, and vegan cheese, bake."
+                "ingredients": ["12 lasagna noodles", "2 cups vegan ricotta", "3 cups tomato sauce", "2 cups fresh spinach", "1 1/2 cups vegan cheese"],
+                "instructions": "Layer noodles, ricotta, spinach, and tomato sauce, top with vegan cheese, bake at 375°F for 40 minutes."
             },
             "Vegan Risotto": {
                 "dish": "Vegan Risotto",
                 "time": 50,
-                "ingredients": ["arborio rice", "vegetable broth", "onions", "garlic", "vegan parmesan"],
-                "instructions": "Prepare risotto with arborio rice, vegetable broth, and vegan parmesan."
+                "ingredients": ["1 cup arborio rice", "3 cups vegetable broth", "1 onion (chopped)", "2 cloves garlic (minced)", "1/4 cup vegan parmesan"],
+                "instructions": "Simmer arborio rice in vegetable broth and garlic, stir in vegan parmesan."
             },
             "Vegan Pizza": {
                 "dish": "Vegan Pizza",
                 "time": 25,
-                "ingredients": ["pizza dough", "tomato sauce", "vegan cheese", "vegetables"],
-                "instructions": "Top pizza dough with tomato sauce, vegan cheese, and vegetables, bake."
+                "ingredients": ["1 pizza dough", "1 cup tomato sauce", "1 1/2 cups vegan cheese", "1 cup assorted vegetables (bell peppers, mushrooms, onions)"],
+                "instructions": "Top dough with sauce, vegan cheese, and vegetables, bake at 450°F for 12-15 minutes."
             },
             "Vegan Gnocchi": {
                 "dish": "Vegan Gnocchi",
                 "time": 40,
-                "ingredients": ["gnocchi", "tomato sauce", "basil", "olive oil", "vegan parmesan"],
-                "instructions": "Cook gnocchi, prepare tomato sauce with basil and olive oil."
+                "ingredients": ["1 lb gnocchi", "2 cups tomato sauce", "1/4 cup fresh basil", "2 tbsp olive oil", "1/4 cup vegan parmesan"],
+                "instructions": "Cook gnocchi, prepare tomato sauce with basil, mix and top with olive oil and vegan parmesan."
             },
             "Vegan Minestrone": {
                 "dish": "Vegan Minestrone",
                 "time": 45,
-                "ingredients": ["vegetables", "beans", "tomato broth", "pasta", "herbs"],
-                "instructions": "Simmer vegetables, beans, and pasta in tomato broth."
+                "ingredients": ["2 cups mixed vegetables (carrots, celery, zucchini)", "1 cup beans", "4 cups tomato broth", "1 cup pasta", "1 tbsp mixed herbs"],
+                "instructions": "Simmer vegetables, beans, and pasta in tomato broth with herbs until vegetables are tender."
             }
         }
         return recipes.get(name)
@@ -161,38 +161,38 @@ class italian_recipe_API:
             "Shrimp Scampi": {
                 "dish": "Shrimp Scampi",
                 "time": 20,
-                "ingredients": ["shrimp", "garlic", "butter", "lemon", "parsley"],
-                "instructions": "Sauté shrimp with garlic and butter, finish with lemon and parsley."
+                "ingredients": ["1 lb shrimp", "4 cloves garlic (minced)", "1/2 cup butter", "1 lemon (juiced)", "2 tbsp parsley (chopped)"],
+                "instructions": "Sauté shrimp with garlic and butter, finish with lemon juice and parsley."
             },
             "Linguine with Clams": {
                 "dish": "Linguine with Clams",
                 "time": 30,
-                "ingredients": ["linguine", "clams", "garlic", "white wine", "parsley"],
-                "instructions": "Cook linguine, prepare clam sauce with garlic, white wine, and parsley."
+                "ingredients": ["12 oz linguine", "2 cups clams", "3 cloves garlic (minced)", "1/2 cup white wine", "2 tbsp parsley (chopped)"],
+                "instructions": "Cook linguine, prepare clam sauce by sautéing garlic, white wine, and clams, serve over pasta."
             },
             "Cioppino": {
                 "dish": "Cioppino",
                 "time": 45,
-                "ingredients": ["mixed seafood", "tomato broth", "garlic", "onions", "wine"],
-                "instructions": "Simmer mixed seafood in tomato broth with garlic, onions, and wine."
+                "ingredients": ["1 lb mixed seafood", "4 cups tomato broth", "2 cloves garlic (minced)", "1 onion (chopped)", "1/2 cup white wine"],
+                "instructions": "Simmer mixed seafood in tomato broth with garlic, onions, and white wine."
             },
             "Grilled Salmon": {
                 "dish": "Grilled Salmon",
                 "time": 25,
-                "ingredients": ["salmon", "lemon", "olive oil", "garlic", "herbs"],
-                "instructions": "Marinate salmon in olive oil, garlic, and herbs, grill."
+                "ingredients": ["4 salmon fillets", "1 lemon (sliced)", "2 tbsp olive oil", "2 cloves garlic (minced)", "2 tbsp herbs (rosemary, thyme)"],
+                "instructions": "Marinate salmon in olive oil, garlic, and herbs, then grill."
             },
             "Tuna Carpaccio": {
                 "dish": "Tuna Carpaccio",
                 "time": 15,
-                "ingredients": ["tuna", "olive oil", "lemon", "capers", "arugula"],
-                "instructions": "Thinly slice tuna, dress with olive oil, lemon, capers, and arugula."
+                "ingredients": ["1/2 lb tuna", "2 tbsp olive oil", "1 lemon (juiced)", "1 tbsp capers", "1/4 cup arugula"],
+                "instructions": "Thinly slice tuna, drizzle with olive oil, lemon juice, capers, and garnish with arugula."
             },
             "Fish Risotto": {
                 "dish": "Fish Risotto",
                 "time": 50,
-                "ingredients": ["fish", "arborio rice", "fish broth", "white wine", "parmesan"],
-                "instructions": "Cook fish, prepare risotto with arborio rice, fish broth, and parmesan."
+                "ingredients": ["1 lb white fish", "1 cup arborio rice", "4 cups fish broth", "1/4 cup white wine", "1/2 cup parmesan"],
+                "instructions": "Cook fish, prepare risotto by simmering rice in fish broth and white wine, stir in parmesan and fish."
             }
         }
         return recipes.get(name)
@@ -203,41 +203,42 @@ class italian_recipe_API:
             "Lamb Ragu": {
                 "dish": "Lamb Ragu",
                 "time": 90,
-                "ingredients": ["lamb", "tomato sauce", "garlic", "onions", "red wine"],
-                "instructions": "Simmer lamb with tomato sauce, garlic, onions, and red wine."
+                "ingredients": ["1 lb lamb", "2 cups tomato sauce", "2 cloves garlic (minced)", "1 onion (chopped)", "1/2 cup red wine"],
+                "instructions": "Simmer lamb with tomato sauce, garlic, onions, and red wine until tender."
             },
             "Lamb Chops": {
                 "dish": "Lamb Chops",
                 "time": 25,
-                "ingredients": ["lamb chops", "garlic", "rosemary", "olive oil", "lemon"],
-                "instructions": "Marinate lamb chops with garlic, rosemary, and olive oil, grill."
+                "ingredients": ["4 lamb chops", "2 cloves garlic (minced)", "2 tbsp rosemary (chopped)", "2 tbsp olive oil", "1 lemon (juiced)"],
+                "instructions": "Marinate lamb chops with garlic, rosemary, olive oil, and lemon, then grill."
             },
             "Lamb Risotto": {
                 "dish": "Lamb Risotto",
                 "time": 50,
-                "ingredients": ["lamb", "arborio rice", "lamb broth", "parmesan", "white wine"],
-                "instructions": "Cook lamb, prepare risotto with arborio rice, lamb broth, and parmesan."
+                "ingredients": ["1 lb lamb", "1 cup arborio rice", "3 cups lamb broth", "1/4 cup white wine", "1/2 cup parmesan"],
+                "instructions": "Cook lamb, prepare risotto with rice, lamb broth, and white wine, stir in parmesan."
             },
             "Lamb Osso Buco": {
                 "dish": "Lamb Osso Buco",
                 "time": 120,
-                "ingredients": ["lamb shanks", "carrots", "celery", "onions", "tomato sauce"],
-                "instructions": "Braise lamb shanks with vegetables and tomato sauce."
+                "ingredients": ["2 lamb shanks", "2 carrots (chopped)", "2 celery stalks (chopped)", "1 onion (chopped)", "2 cups tomato sauce"],
+                "instructions": "Braise lamb shanks with vegetables and tomato sauce in a slow-cooked oven until tender."
             },
             "Lamb Meatballs": {
                 "dish": "Lamb Meatballs",
                 "time": 40,
-                "ingredients": ["ground lamb", "breadcrumbs", "parmesan", "tomato sauce", "herbs"],
-                "instructions": "Form lamb into meatballs, bake, simmer in tomato sauce."
+                "ingredients": ["1 lb ground lamb", "1/2 cup breadcrumbs", "1/4 cup parmesan", "2 cups tomato sauce", "2 tbsp herbs"],
+                "instructions": "Form lamb into meatballs, bake, then simmer in tomato sauce."
             },
             "Lamb Lasagna": {
                 "dish": "Lamb Lasagna",
                 "time": 90,
-                "ingredients": ["ground lamb", "lasagna noodles", "ricotta", "tomato sauce", "mozzarella"],
-                "instructions": "Layer lamb, noodles, ricotta, and tomato sauce, top with mozzarella, bake."
+                "ingredients": ["1 lb ground lamb", "12 lasagna noodles", "1 1/2 cups ricotta", "3 cups tomato sauce", "2 cups mozzarella"],
+                "instructions": "Layer lamb, noodles, ricotta, and tomato sauce in a baking dish, top with mozzarella, and bake."
             }
         }
         return recipes.get(name)
+
 
 
 # Chicken Recipes
@@ -472,6 +473,7 @@ api.add_resource(BeefFlorentine, '/italian_recipe/BeefFlorentine')
 api.add_resource(BeefOssobuco, '/italian_recipe/BeefOssobuco')
 api.add_resource(BeefRisotto, '/italian_recipe/BeefRisotto')
 
+api.add_resource(VeganSpaghetti, '/italian_recipe/VeganSpaghetti')
 api.add_resource(VeganLasagna, '/italian_recipe/VeganLasagna')
 api.add_resource(VeganRisotto, '/italian_recipe/VeganRisotto')
 api.add_resource(VeganPizza, '/italian_recipe/VeganPizza')

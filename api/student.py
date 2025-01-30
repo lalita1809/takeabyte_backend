@@ -155,21 +155,71 @@ class StudentAPI:
                 return {'message': f'Error retrieving student: {str(e)}'}, 500
     class _Update(Resource):
         def put(self):
-            data = request.get_json()  # Parse JSON from the request body
-            if not data:
-                return jsonify({"message": "Invalid input"}), 400
+            """
+            Update a student.
+            """
+            body = request.get_json()
 
-            name = data.get("name", "")
-            student = Student.query.filter_by(name=name).first()  # Find the student by name
-            if not student:
-                return jsonify({"message": "Student not found"}), 404
+            # Get student name from the request body
+            name = body.get('name')
+            if not name:
+                return {'message': 'Student name is required for updating.'}, 400
 
-            # Call the update method of the Student model
-            updated_student = student.update(data)
-            if updated_student:
-                return jsonify({"name": updated_student.name}), 200
-            else:
-                return jsonify({"message": "Failed to update student"}), 500
+            # Find the student in the database
+            student = Student.query.filter_by(name=name).first()
+            if student is None:
+                return {'message': f'Student {name} not found'}, 404
+
+            # Update the student object with the new data
+            student.update(body)
+
+            return jsonify(student.read())
+    class _Delete(Resource):
+        def delete(self):
+            """
+            Delete a student.
+            """
+            body = request.get_json()
+
+            # Check if 'name' is provided in the request
+            if not body or 'name' not in body:
+                return {'message': 'Missing student name'}, 400  # Bad request
+
+            # Extract student details from the request body
+            name = body['name']
+            age = body.get('age')
+            grade = body.get('grade')
+            favorite_color = body.get('favorite_color')
+
+            # Check if the student exists in the database
+            student = Student.query.filter_by(name=name).first()
+
+            if student is None:
+                return {'message': f'Student {name} not found'}, 404  # Not found
+
+            # Compare current student data with the data in the request body
+            if age is not None and student.age != age:
+                return {'message': f'Age mismatch. Student age is {student.age}, but received {age}.'}, 400
+            if grade is not None and student.grade != grade:
+                return {'message': f'Grade mismatch. Student grade is {student.grade}, but received {grade}.'}, 400
+            if favorite_color is not None and student.favorite_color != favorite_color:
+                return {'message': f'Favorite color mismatch. Student color is {student.favorite_color}, but received {favorite_color}.'}, 400
+
+            # Assuming student.read() returns a dictionary of their data
+            try:
+                json = student.read()
+                if not isinstance(json, dict):
+                    raise ValueError("Student data is not serializable")
+            except Exception as e:
+                return {'message': str(e)}, 500  # Server error
+
+            # Proceed to delete the student
+            student.delete()
+
+            return jsonify({'message': f'Student {name} deleted', 'data': json}), 200  # OK response
+
+
+
 
     
 
@@ -184,6 +234,8 @@ api.add_resource(StudentAPI._addStudent, '/student/add')
 api.add_resource(StudentAPI._Read, '/studentGet/<string:name>')
 api.add_resource(StudentAPI._ReadGeneral, '/studentGet/')
 api.add_resource(StudentAPI._Update, '/student/update')
+api.add_resource(StudentAPI._Delete, '/student/delete')
+
 
 
 

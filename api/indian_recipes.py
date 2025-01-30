@@ -1,10 +1,32 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from flask_restful import Api, Resource  # used for REST API building
+from __init__ import db
+from model.chinese_recipes import Recipe
 
 indian_recipe_api = Blueprint('indian_recipe_api', __name__, url_prefix='/api')
 
 # API docs https://flask-restful.readthedocs.io/en/latest/
 api = Api(indian_recipe_api)
+
+
+class SaveRecipe(Resource):
+    def post(self):
+        data = request.get_json()
+        if not data:
+            return {"message": "No input data provided"}, 400
+
+        try:
+            recipe = Recipe(
+                name=data.get('title'),
+                dish=data.get('title'),
+                time=data.get('time'),
+                ingredients=data.get('ingredients'),
+                instructions=data.get('instructions')
+            )
+            recipe.create()
+            return {"message": "Recipe saved successfully"}, 201
+        except Exception as e:
+            return {"message": f"An error occurred: {str(e)}"}, 500
 
 class indian_recipe_API:
     @staticmethod
@@ -375,6 +397,8 @@ class indian_recipe_API:
             if recipe:
                 return jsonify(recipe)
             return {"Data not found"}, 404
+        
+api.add_resource(SaveRecipe, '/save_recipe')
         
 api.add_resource(indian_recipe_API._ButterChicken, '/indian_recipe/ButterChicken')
 api.add_resource(indian_recipe_API._ChickenTikkaMasala, '/indian_recipe/ChickenTikkaMasala')

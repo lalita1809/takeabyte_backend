@@ -211,13 +211,15 @@ def ai_food_help():
         print(e)
         return jsonify({"error": str(e)}), 500
     
-@app.route('/api/chinese_recipe/save_recipe', methods=['POST'])
+@app.route('/save_recipe', methods=['POST'])
 def save_recipe_route():
     data = request.get_json()
     name = data.get('name')
     dish = data.get('dish')
     time = data.get('time')
-    ingredients = data.get('ingredients')
+    
+    # Convert the ingredients list to a JSON string
+    ingredients = json.dumps(data.get('ingredients'))  # Convert the list to a JSON string
     instructions = data.get('instructions')
     
     recipe = save_recipe(name, dish, time, ingredients, instructions)

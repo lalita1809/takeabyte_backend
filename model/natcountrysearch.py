@@ -8,136 +8,136 @@ from __init__ import app, db
 
 
 class CountryDish(db.Model):
-  """
-  CountryDish Model
-   The CountryDish class represents a country's national dish along with a description.
-   Attributes:
-      id (db.Column): The primary key, an integer representing the unique identifier for the dish.
-      _country (db.Column): A string representing the name of the country.
-      _dish (db.Column): A string representing the name of the national dish.
-      _description (db.Column): A string representing the description of the national dish.
-  """
-  __tablename__ = 'country_dishes'
+    """
+    CountryDish Model
+    The CountryDish class represents a country's national dish along with a description.
+    Attributes:
+        id (db.Column): The primary key, an integer representing the unique identifier for the dish.
+        _country (db.Column): A string representing the name of the country.
+        _dish (db.Column): A string representing the name of the national dish.
+        _description (db.Column): A string representing the description of the national dish.
+    """
+    __tablename__ = 'country_dishes'
 
 
 
 
-  id = db.Column(db.Integer, primary_key=True)
-  _country = db.Column(db.String(255), nullable=False)
-  _dish = db.Column(db.String(255), nullable=False)
-  _description = db.Column(db.String(500), nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    _country = db.Column(db.String(255), nullable=False)
+    _dish = db.Column(db.String(255), nullable=False)
+    _description = db.Column(db.String(500), nullable=False)
 
 
 
 
-def __init__(self, country, dish, description):
-      """
-      Constructor, 1st step in object creation.
-    
-      Args:
-          country (str): The name of the country.
-          dish (str): The name of the national dish.
-          description (str): The description of the national dish.
-      """
-      self._country = country
-      self._dish = dish
-      self._description = description
+    def __init__(self, country, dish, description):
+        """
+        Constructor, 1st step in object creation.
+        
+        Args:
+            country (str): The name of the country.
+            dish (str): The name of the national dish.
+            description (str): The description of the national dish.
+        """
+        self._country = country
+        self._dish = dish
+        self._description = description
 
 
 
 
-def __repr__(self):
-      """
-      The __repr__ method is used to represent the object in string format.
-      Called by the repr(country_dish) built-in function.
-    
-      Returns:
-          str: A text representation of how to create the object.
-      """
-      return f"CountryDish(id={self.id}, country={self._country}, dish={self._dish}, description={self._description})"
+    def __repr__(self):
+        """
+        The __repr__ method is used to represent the object in string format.
+        Called by the repr(country_dish) built-in function.
+        
+        Returns:
+            str: A text representation of how to create the object.
+        """
+        return f"CountryDish(id={self.id}, country={self._country}, dish={self._dish}, description={self._description})"
 
 
 
 
-def create(self):
-      """
-      Creates a new country dish record in the database.
-    
-      Returns:
-          CountryDish: The created country dish object, or None on error.
-      """
-      try:
-          db.session.add(self)
-          db.session.commit()
-      except IntegrityError as e:
-          db.session.rollback()
-          logging.warning(f"IntegrityError: Could not create country dish for '{self._country}' due to {str(e)}.")
-          return None
-      return self
-    
-def read(self):
-      """
-      The read method retrieves the object data from the object's attributes and returns it as a dictionary.
-    
-      Returns:
-          dict: A dictionary containing the country dish data.
-      """
-      data = {
-          "id": self.id,
-          "country": self._country,
-          "dish": self._dish,
-          "description": self._description
-      }
-      return data
+    def create(self):
+        """
+        Creates a new country dish record in the database.
+        
+        Returns:
+            CountryDish: The created country dish object, or None on error.
+        """
+        try:
+            db.session.add(self)
+            db.session.commit()
+        except IntegrityError as e:
+            db.session.rollback()
+            logging.warning(f"IntegrityError: Could not create country dish for '{self._country}' due to {str(e)}.")
+            return None
+        return self
+        
+    def read(self):
+        """
+        The read method retrieves the object data from the object's attributes and returns it as a dictionary.
+        
+        Returns:
+            dict: A dictionary containing the country dish data.
+        """
+        data = {
+            "id": self.id,
+            "country": self._country,
+            "dish": self._dish,
+            "description": self._description
+        }
+        return data
 
 
 
 
-def update(self, country=None, dish=None, description=None):
-      """
-      Updates the country dish object with new data.
+    def update(self, country=None, dish=None, description=None):
+        """
+        Updates the country dish object with new data.
 
 
-      Args:
-          country (str, optional): The updated country name.
-          dish (str, optional): The updated dish name.
-          description (str, optional): The updated description.
+        Args:
+            country (str, optional): The updated country name.
+            dish (str, optional): The updated dish name.
+            description (str, optional): The updated description.
 
 
-      Returns:
-          CountryDish: The updated country dish object, or None on error.
-      """
-      if country:
-          self._country = country
-      if dish:
-          self._dish = dish
-      if description:
-          self._description = description
+        Returns:
+            CountryDish: The updated country dish object, or None on error.
+        """
+        if country:
+            self._country = country
+        if dish:
+            self._dish = dish
+        if description:
+            self._description = description
 
 
-      try:
-          db.session.commit()
-      except IntegrityError:
-          db.session.rollback()
-          logging.warning(f"IntegrityError: Could not update country dish for '{self._country}' due to missing data.")
-          return None
-      return self
-def delete(self):
-      """
-      The delete method removes the object from the database and commits the transaction.
-    
-      Uses:
-          The db ORM methods to delete and commit the transaction.
-    
-      Raises:
-          Exception: An error occurred when deleting the object from the database.
-      """  
-      try:
-          db.session.delete(self)
-          db.session.commit()
-      except Exception as e:
-          db.session.rollback()
-          raise e
+        try:
+            db.session.commit()
+        except IntegrityError:
+            db.session.rollback()
+            logging.warning(f"IntegrityError: Could not update country dish for '{self._country}' due to missing data.")
+            return None
+        return self
+    def delete(self):
+        """
+        The delete method removes the object from the database and commits the transaction.
+        
+        Uses:
+            The db ORM methods to delete and commit the transaction.
+        
+        Raises:
+            Exception: An error occurred when deleting the object from the database.
+        """  
+        try:
+            db.session.delete(self)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            raise e
     
 @staticmethod
 def restore(data):

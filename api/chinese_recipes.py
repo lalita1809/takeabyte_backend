@@ -469,7 +469,7 @@ class chinese_recipe_API:
             return {"Data not found"}, 404
         
 api.add_resource(SaveRecipe, '/save_recipe')
-api.add_resource(UpdateRecipe, '/api/chinese_recipe/edit_recipe/<int:recipe_id>')
+api.add_resource(UpdateRecipe, '/edit_recipe/<int:recipe_id>')
 
         
 api.add_resource(chinese_recipe_API._KungPaoChicken, '/chinese_recipe/KungPaoChicken')

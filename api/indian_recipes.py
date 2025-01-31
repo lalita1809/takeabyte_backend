@@ -424,7 +424,7 @@ class indian_recipe_API:
             return {"Data not found"}, 404
         
 api.add_resource(SaveRecipe, '/save_recipe')
-api.add_resource(UpdateRecipe, '/api/chinese_recipe/edit_recipe/<int:recipe_id>')
+api.add_resource(UpdateRecipe, '/edit_recipe/<int:recipe_id>')
         
 api.add_resource(indian_recipe_API._ButterChicken, '/indian_recipe/ButterChicken')
 api.add_resource(indian_recipe_API._ChickenTikkaMasala, '/indian_recipe/ChickenTikkaMasala')

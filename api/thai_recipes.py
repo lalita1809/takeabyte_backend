@@ -26,6 +26,30 @@ class SaveRecipe(Resource):
             return {"message": "Recipe saved successfully"}, 201
         except Exception as e:
             return {"message": f"An error occurred: {str(e)}"}, 500
+        
+class UpdateRecipe(Resource):
+    def put(self, recipe_id):
+        data = request.get_json()
+        if not data:
+            return {"message": "No input data provided"}, 400
+
+        recipe = Recipe.query.get(recipe_id)
+        if not recipe:
+            return {"message": "Recipe not found"}, 404
+
+        try:
+            recipe.name = data.get('title', recipe.name)
+            recipe.dish = data.get('title', recipe.dish)
+            recipe.time = data.get('time', recipe.time)
+            recipe.ingredients = data.get('ingredients', recipe.ingredients)
+            recipe.instructions = data.get('instructions', recipe.instructions)
+            
+            db.session.commit()
+
+            return {"message": "Recipe updated successfully", "recipe": recipe.read()}, 200
+        except Exception as e:
+            db.session.rollback()
+            return {"message": f"An error occurred: {str(e)}"}, 500
 
 class thai_recipe_API:
     @staticmethod
@@ -411,6 +435,7 @@ class thai_recipe_API:
             return {"Data not found"}, 404
         
 api.add_resource(SaveRecipe, '/save_recipe')
+api.add_resource(UpdateRecipe, '/edit_recipe/<int:recipe_id>')
         
 api.add_resource(thai_recipe_API._PadThaiChicken, '/thai_recipe/PadThaiChicken')
 api.add_resource(thai_recipe_API._ThaiGreenCurryChicken, '/thai_recipe/ThaiGreenCurryChicken')

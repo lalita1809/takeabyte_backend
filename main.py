@@ -249,6 +249,28 @@ def delete_recipe(recipe_id):
             return jsonify({"error": "Recipe not found"}), 404
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+@app.route('/api/chinese_recipe/edit_recipe/<int:recipe_id>', methods=['PUT'])
+def edit_recipe(recipe_id):
+    data = request.get_json()
+
+    recipe = Recipe.query.get(recipe_id)
+    
+    if not recipe:
+        return jsonify({"error": "Recipe not found"}), 404  
+
+    recipe._name = data.get('name', recipe._name)
+    recipe._ingredients = data.get('ingredients', recipe._ingredients)
+    recipe._instructions = data.get('instructions', recipe._instructions)
+
+    try:
+        db.session.commit()
+        return jsonify({"message": "Recipe updated successfully"}), 200 
+    except Exception as e:
+        db.session.rollback()  # Rollback if there's an error
+        return jsonify({"error": f"Failed to update recipe: {str(e)}"}), 500  # Return error message
+
+
 
 
 # Extract data from the existing database

@@ -27,6 +27,32 @@ class SaveRecipe(Resource):
         except Exception as e:
             return {"message": f"An error occurred: {str(e)}"}, 500
 
+class UpdateRecipe(Resource):
+    def put(self, recipe_id):
+        data = request.get_json()
+        if not data:
+            return {"message": "No input data provided"}, 400
+
+        # Find the recipe by id
+        recipe = Recipe.query.get(recipe_id)
+        if not recipe:
+            return {"message": "Recipe not found"}, 404
+
+        try:
+            # Update the recipe fields
+            recipe.name = data.get('title', recipe.name)
+            recipe.dish = data.get('title', recipe.dish)
+            recipe.time = data.get('time', recipe.time)
+            recipe.ingredients = data.get('ingredients', recipe.ingredients)
+            recipe.instructions = data.get('instructions', recipe.instructions)
+
+            # Commit the changes to the database
+            db.session.commit()
+
+            return {"message": "Recipe updated successfully", "recipe": recipe.read()}, 200
+        except Exception as e:
+            db.session.rollback()
+            return {"message": f"An error occurred: {str(e)}"}, 500
 
 class italian_recipe_API:
     @staticmethod
@@ -457,6 +483,7 @@ class LambLasagna(Resource):
         return {"Data not found"}, 404
     
 api.add_resource(SaveRecipe, '/save_recipe')
+api.add_resource(UpdateRecipe, '/api/chinese_recipe/edit_recipe/<int:recipe_id>')
 
 # Register API resources
 api.add_resource(ChickenParmesan, '/italian_recipe/ChickenParmesan')

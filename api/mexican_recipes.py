@@ -60,38 +60,38 @@ class mexican_recipe_API:
             "Chicken Enchiladas": {
                 "dish": "Chicken Enchiladas",
                 "time": 60,
-                "ingredients": ["chicken", "tortillas", "cheese", "salsa", "spices"],
-                "instructions": "Roll chicken in tortillas, top with cheese and salsa, bake."
+                "ingredients": ["500g chicken breast, shredded", "8 corn tortillas", "1 cup shredded cheese", "1 cup salsa", "1 tsp cumin", "1 tsp chili powder", "1/2 tsp garlic powder", "1/2 tsp onion powder", "Salt and pepper to taste"],
+                "instructions": "Preheat oven to 350°F. Shred cooked chicken and season with cumin, chili powder, garlic powder, onion powder, salt, and pepper. Roll chicken in tortillas, place in a baking dish, top with salsa and cheese, and bake for 20-25 minutes."
             },
             "Chicken Tacos": {
                 "dish": "Chicken Tacos",
                 "time": 30,
-                "ingredients": ["chicken", "taco shells", "lettuce", "cheese", "sour cream"],
-                "instructions": "Fill taco shells with chicken, lettuce, cheese, and sour cream."
+                "ingredients": ["500g cooked chicken, shredded", "8 taco shells", "1 cup shredded lettuce", "1/2 cup shredded cheese", "1/4 cup sour cream", "1 tbsp taco seasoning", "1 tbsp olive oil"],
+                "instructions": "In a skillet, heat olive oil and sauté shredded chicken with taco seasoning for 5 minutes. Fill taco shells with seasoned chicken, lettuce, cheese, and top with sour cream."
             },
             "Chicken Fajitas": {
                 "dish": "Chicken Fajitas",
                 "time": 25,
-                "ingredients": ["chicken", "bell peppers", "onions", "fajita seasoning"],
-                "instructions": "Sauté chicken, bell peppers, and onions with fajita seasoning."
+                "ingredients": ["500g chicken breast, sliced", "1 bell pepper, sliced", "1 onion, sliced", "2 tbsp fajita seasoning", "1 tbsp olive oil", "Tortillas for serving"],
+                "instructions": "Heat oil in a skillet and sauté chicken, bell peppers, and onions with fajita seasoning for 7-10 minutes. Serve with warm tortillas."
             },
             "Pollo Asado": {
                 "dish": "Pollo Asado",
                 "time": 50,
-                "ingredients": ["chicken", "citrus", "garlic", "spices"],
-                "instructions": "Marinate chicken in citrus and spices, then grill."
+                "ingredients": ["1 whole chicken, cut into parts", "Juice of 2 limes", "4 cloves garlic, minced", "2 tbsp olive oil", "1 tbsp chili powder", "1 tbsp paprika", "1 tsp cumin", "Salt and pepper to taste"],
+                "instructions": "Marinate chicken in lime juice, garlic, olive oil, chili powder, paprika, cumin, salt, and pepper for at least 30 minutes. Grill chicken on medium-high heat for 20-30 minutes until fully cooked."
             },
             "Chicken Quesadillas": {
                 "dish": "Chicken Quesadillas",
                 "time": 20,
-                "ingredients": ["chicken", "cheese", "flour tortillas", "salsa"],
-                "instructions": "Grill tortillas with cheese and chicken, serve with salsa."
+                "ingredients": ["2 flour tortillas", "1 cup cooked chicken, shredded", "1 cup shredded cheese", "1/4 cup salsa", "1 tbsp butter"],
+                "instructions": "Place one tortilla on a skillet, add shredded chicken, cheese, and salsa, and top with another tortilla. Grill with butter on both sides until golden brown and cheese is melted."
             },
             "Chicken Tamales": {
                 "dish": "Chicken Tamales",
                 "time": 120,
-                "ingredients": ["chicken", "masa", "corn husks", "salsa"],
-                "instructions": "Fill masa with chicken, wrap in corn husks, steam."
+                "ingredients": ["2 cups masa harina", "1 cup chicken broth", "1/2 cup vegetable oil", "1 cup cooked chicken, shredded", "1/2 cup salsa", "Corn husks for wrapping"],
+                "instructions": "Soak corn husks in warm water for 30 minutes. Mix masa harina, chicken broth, and vegetable oil to form the masa dough. Spread masa on the corn husks, add shredded chicken and salsa, then wrap and steam for 1-1.5 hours."
             }
         }
         return recipes.get(name)
@@ -102,38 +102,38 @@ class mexican_recipe_API:
             "Beef Enchiladas": {
                 "dish": "Beef Enchiladas",
                 "time": 60,
-                "ingredients": ["beef", "tortillas", "cheese", "salsa", "spices"],
-                "instructions": "Roll beef in tortillas, top with cheese and salsa, bake."
+                "ingredients": ["500g ground beef", "8 corn tortillas", "1 cup shredded cheese", "1 cup salsa", "1 tsp cumin", "1/2 tsp garlic powder", "Salt and pepper to taste"],
+                "instructions": "Preheat oven to 350°F. Brown ground beef in a skillet, then add cumin, garlic powder, salt, and pepper. Roll beef in tortillas, place in a baking dish, top with salsa and cheese, and bake for 20-25 minutes."
             },
             "Beef Tacos": {
                 "dish": "Beef Tacos",
                 "time": 30,
-                "ingredients": ["beef", "taco shells", "lettuce", "cheese", "sour cream"],
-                "instructions": "Fill taco shells with beef, lettuce, cheese, and sour cream."
+                "ingredients": ["500g ground beef", "8 taco shells", "1 cup shredded lettuce", "1/2 cup shredded cheese", "1/4 cup sour cream", "1 tbsp taco seasoning", "1 tbsp olive oil"],
+                "instructions": "Heat olive oil in a skillet and sauté ground beef with taco seasoning for 7-10 minutes. Fill taco shells with beef, lettuce, cheese, and top with sour cream."
             },
             "Beef Fajitas": {
                 "dish": "Beef Fajitas",
                 "time": 25,
-                "ingredients": ["beef", "bell peppers", "onions", "fajita seasoning"],
-                "instructions": "Sauté beef, bell peppers, and onions with fajita seasoning."
+                "ingredients": ["500g beef, sliced", "1 bell pepper, sliced", "1 onion, sliced", "2 tbsp fajita seasoning", "1 tbsp olive oil", "Tortillas for serving"],
+                "instructions": "Heat oil in a skillet and sauté beef, bell peppers, and onions with fajita seasoning for 7-10 minutes. Serve with warm tortillas."
             },
             "Beef Burritos": {
                 "dish": "Beef Burritos",
                 "time": 30,
-                "ingredients": ["beef", "tortillas", "rice", "beans", "cheese"],
-                "instructions": "Roll beef, rice, beans, and cheese in tortillas."
+                "ingredients": ["500g ground beef", "4 large flour tortillas", "1 cup rice, cooked", "1 cup beans", "1 cup shredded cheese", "1/4 cup salsa"],
+                "instructions": "Brown ground beef in a skillet. Warm tortillas, then fill with beef, rice, beans, cheese, and salsa. Roll up the tortillas and serve."
             },
             "Beef Tostadas": {
                 "dish": "Beef Tostadas",
                 "time": 20,
-                "ingredients": ["beef", "tostada shells", "lettuce", "cheese", "sour cream"],
-                "instructions": "Top tostada shells with beef, lettuce, cheese, and sour cream."
+                "ingredients": ["500g ground beef", "4 tostada shells", "1 cup shredded lettuce", "1/2 cup shredded cheese", "1/4 cup sour cream"],
+                "instructions": "Brown ground beef in a skillet and season to taste. Top tostada shells with beef, lettuce, cheese, and sour cream."
             },
             "Carne Asada": {
                 "dish": "Carne Asada",
                 "time": 40,
-                "ingredients": ["beef", "lime", "garlic", "spices"],
-                "instructions": "Marinate beef in lime, garlic, and spices, then grill."
+                "ingredients": ["500g flank steak", "Juice of 2 limes", "4 cloves garlic, minced", "2 tbsp olive oil", "1 tbsp chili powder", "1 tsp cumin", "Salt and pepper to taste"],
+                "instructions": "Marinate flank steak in lime juice, garlic, olive oil, chili powder, cumin, salt, and pepper for at least 30 minutes. Grill steak on medium-high heat for 5-7 minutes per side, then slice thinly against the grain."
             }
         }
         return recipes.get(name)
@@ -144,38 +144,38 @@ class mexican_recipe_API:
             "Vegan Tacos": {
                 "dish": "Vegan Tacos",
                 "time": 20,
-                "ingredients": ["taco shells", "lettuce", "avocado", "salsa", "beans"],
+                "ingredients": ["8 taco shells", "1 cup shredded lettuce", "1 avocado, sliced", "1/2 cup salsa", "1 cup cooked beans"],
                 "instructions": "Fill taco shells with lettuce, avocado, salsa, and beans."
             },
             "Vegan Burritos": {
                 "dish": "Vegan Burritos",
                 "time": 25,
-                "ingredients": ["tortillas", "beans", "rice", "lettuce", "salsa"],
+                "ingredients": ["4 large flour tortillas", "1 cup cooked beans", "1 cup rice, cooked", "1 cup shredded lettuce", "1/2 cup salsa"],
                 "instructions": "Roll beans, rice, lettuce, and salsa in tortillas."
             },
             "Vegan Enchiladas": {
                 "dish": "Vegan Enchiladas",
                 "time": 50,
-                "ingredients": ["tortillas", "beans", "vegan cheese", "salsa"],
-                "instructions": "Roll beans and vegan cheese in tortillas, top with salsa and bake."
+                "ingredients": ["8 corn tortillas", "1 cup cooked beans", "1 cup vegan cheese", "1 cup salsa"],
+                "instructions": "Roll beans and vegan cheese in tortillas, top with salsa, and bake at 350°F for 25 minutes."
             },
             "Vegan Quesadillas": {
                 "dish": "Vegan Quesadillas",
                 "time": 20,
-                "ingredients": ["flour tortillas", "vegan cheese", "salsa", "avocado"],
+                "ingredients": ["2 flour tortillas", "1 cup vegan cheese", "1/4 cup salsa", "1 avocado, sliced"],
                 "instructions": "Grill tortillas with vegan cheese, serve with salsa and avocado."
             },
             "Vegan Fajitas": {
                 "dish": "Vegan Fajitas",
                 "time": 25,
-                "ingredients": ["bell peppers", "onions", "fajita seasoning", "tortillas"],
+                "ingredients": ["1 bell pepper, sliced", "1 onion, sliced", "1 tbsp fajita seasoning", "4 tortillas"],
                 "instructions": "Sauté bell peppers and onions with fajita seasoning, serve with tortillas."
             },
             "Vegan Tamales": {
                 "dish": "Vegan Tamales",
                 "time": 120,
-                "ingredients": ["masa", "salsa", "corn husks", "vegan filling"],
-                "instructions": "Fill masa with vegan filling, wrap in corn husks, steam."
+                "ingredients": ["2 cups masa harina", "1/2 cup vegetable broth", "1 cup salsa", "1 cup vegan filling (e.g., mushrooms or squash)"],
+                "instructions": "Soak corn husks for 30 minutes. Mix masa harina with vegetable broth. Spread masa on corn husks, add vegan filling, wrap, and steam for 1-1.5 hours."
             }
         }
         return recipes.get(name)
@@ -186,38 +186,38 @@ class mexican_recipe_API:
             "Fish Tacos": {
                 "dish": "Fish Tacos",
                 "time": 20,
-                "ingredients": ["fish", "taco shells", "cabbage", "salsa", "lime"],
-                "instructions": "Fill taco shells with fish, cabbage, salsa, and a squeeze of lime."
+                "ingredients": ["500g white fish fillets", "8 taco shells", "1 cup shredded cabbage", "1/2 cup salsa", "1 lime, cut into wedges"],
+                "instructions": "Grill fish fillets for 6-8 minutes, then fill taco shells with fish, shredded cabbage, salsa, and a squeeze of lime."
             },
             "Crispy Fish Tacos": {
                 "dish": "Crispy Fish Tacos",
                 "time": 30,
-                "ingredients": ["fish", "corn tortillas", "cabbage", "salsa", "lime"],
-                "instructions": "Fry fish, place in corn tortillas, top with cabbage and salsa."
+                "ingredients": ["500g white fish fillets", "8 corn tortillas", "1 cup shredded cabbage", "1/2 cup salsa", "1 lime"],
+                "instructions": "Fry fish fillets until crispy, place in tortillas, and top with cabbage, salsa, and lime juice."
             },
             "Grilled Fish Burritos": {
                 "dish": "Grilled Fish Burritos",
                 "time": 30,
-                "ingredients": ["fish", "tortillas", "rice", "beans", "salsa"],
-                "instructions": "Grill fish and roll with rice, beans, and salsa in tortillas."
+                "ingredients": ["500g white fish fillets", "4 tortillas", "1 cup rice", "1 cup beans", "1/4 cup salsa"],
+                "instructions": "Grill fish fillets for 5-7 minutes. Roll fish with rice, beans, and salsa in tortillas."
             },
             "Fish Veracruz": {
                 "dish": "Fish Veracruz",
                 "time": 45,
-                "ingredients": ["fish", "tomatoes", "olives", "onions", "peppers"],
-                "instructions": "Cook fish with tomatoes, olives, onions, and peppers."
+                "ingredients": ["500g white fish fillets", "2 tomatoes, chopped", "1/4 cup olives", "1 onion, sliced", "1 bell pepper, sliced"],
+                "instructions": "Simmer fish fillets with tomatoes, olives, onions, and bell peppers for 15-20 minutes until fully cooked."
             },
             "Fish Ceviche": {
                 "dish": "Fish Ceviche",
                 "time": 30,
-                "ingredients": ["fish", "lime", "tomato", "onions", "cilantro"],
-                "instructions": "Marinate fish in lime juice, mix with tomatoes, onions, and cilantro."
+                "ingredients": ["500g white fish, diced", "Juice of 3 limes", "1 tomato, chopped", "1 onion, chopped", "1/4 cup cilantro, chopped"],
+                "instructions": "Marinate fish in lime juice for 2-3 hours, then mix with tomato, onion, and cilantro."
             },
             "Fish Fajitas": {
                 "dish": "Fish Fajitas",
                 "time": 25,
-                "ingredients": ["fish", "bell peppers", "onions", "fajita seasoning", "tortillas"],
-                "instructions": "Cook fish with bell peppers and onions, serve with tortillas."
+                "ingredients": ["500g white fish fillets", "1 bell pepper, sliced", "1 onion, sliced", "1 tbsp fajita seasoning", "4 tortillas"],
+                "instructions": "Cook fish fillets with bell peppers and onions, season with fajita seasoning, and serve with tortillas."
             }
         }
         return recipes.get(name)
@@ -228,41 +228,42 @@ class mexican_recipe_API:
             "Lamb Tacos": {
                 "dish": "Lamb Tacos",
                 "time": 30,
-                "ingredients": ["lamb", "taco shells", "onions", "cilantro", "salsa"],
-                "instructions": "Cook lamb, fill taco shells with lamb, onions, cilantro, and salsa."
+                "ingredients": ["500g ground lamb", "8 taco shells", "1 onion, diced", "1/4 cup cilantro, chopped", "1/2 cup salsa"],
+                "instructions": "Cook ground lamb in a skillet, season with spices, and fill taco shells with lamb, onions, cilantro, and salsa."
             },
             "Lamb Burritos": {
                 "dish": "Lamb Burritos",
                 "time": 25,
-                "ingredients": ["lamb", "tortillas", "beans", "rice", "cheese"],
-                "instructions": "Roll lamb, beans, rice, and cheese in tortillas."
+                "ingredients": ["500g ground lamb", "4 large flour tortillas", "1 cup rice, cooked", "1 cup beans", "1 cup shredded cheese"],
+                "instructions": "Brown lamb in a skillet, roll with rice, beans, and cheese in tortillas."
             },
             "Lamb Fajitas": {
                 "dish": "Lamb Fajitas",
                 "time": 25,
-                "ingredients": ["lamb", "bell peppers", "onions", "fajita seasoning", "tortillas"],
-                "instructions": "Sauté lamb, bell peppers, and onions with fajita seasoning, serve with tortillas."
+                "ingredients": ["500g lamb, sliced", "1 bell pepper, sliced", "1 onion, sliced", "2 tbsp fajita seasoning", "Tortillas for serving"],
+                "instructions": "Sauté lamb, bell peppers, and onions with fajita seasoning. Serve with tortillas."
             },
             "Lamb Enchiladas": {
                 "dish": "Lamb Enchiladas",
                 "time": 60,
-                "ingredients": ["lamb", "tortillas", "cheese", "salsa"],
-                "instructions": "Roll lamb in tortillas, top with cheese and salsa, bake."
+                "ingredients": ["500g lamb, shredded", "8 corn tortillas", "1 cup shredded cheese", "1 cup salsa"],
+                "instructions": "Roll lamb in tortillas, top with salsa and cheese, bake at 350°F for 25 minutes."
             },
             "Braised Lamb Shank": {
                 "dish": "Braised Lamb Shank",
                 "time": 120,
-                "ingredients": ["lamb shank", "tomato", "onions", "spices"],
-                "instructions": "Braised lamb shank in tomato and spices."
+                "ingredients": ["2 lamb shanks", "2 tomatoes, chopped", "1 onion, chopped", "1 tbsp cinnamon", "1 tbsp cumin", "1 tbsp garlic powder"],
+                "instructions": "Brown lamb shanks in a pot. Add tomatoes, onions, cinnamon, cumin, garlic powder, and simmer for 2 hours."
             },
             "Lamb Quesadillas": {
                 "dish": "Lamb Quesadillas",
                 "time": 20,
-                "ingredients": ["lamb", "cheese", "flour tortillas", "salsa"],
-                "instructions": "Grill tortillas with lamb and cheese, serve with salsa."
+                "ingredients": ["500g lamb, cooked and shredded", "2 flour tortillas", "1 cup shredded cheese", "1/4 cup salsa"],
+                "instructions": "Grill tortillas with lamb and cheese. Serve with salsa."
             }
         }
         return recipes.get(name)
+
 
 
     class _ChickenEnchiladas(Resource):

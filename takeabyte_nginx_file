@@ -1,7 +1,7 @@
 server {
         listen 80;
         listen [::]:80;
-        server_name takeabyte.stu.flask2025.nighthawkcodingsociety.com;
+        server_name takeabyte.stu.nighthawkcodingsociety.com;
 
         location / {
             proxy_pass http://localhost:8403;

@@ -15,5 +15,5 @@ server {
                 add_header "Access-Control-Allow-Headers" "Authorization, Origin, X-Origin, X-Requested-With, Content-Type, Accept" always;
                 return 204;
         }
-     }
+    }
 }

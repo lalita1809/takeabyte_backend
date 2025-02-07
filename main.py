@@ -10,6 +10,7 @@ from flask_login import current_user, login_required, login_manager
 from flask import current_app
 from werkzeug.security import generate_password_hash
 import shutil
+import google.generativeai as genai
 
 
 

@@ -145,31 +145,31 @@ class mexican_recipe_API:
                 "dish": "Vegan Tacos",
                 "time": 20,
                 "ingredients": ["8 taco shells", "1 cup shredded lettuce", "1 avocado, sliced", "1/2 cup salsa", "1 cup cooked beans"],
-                "instructions": "Fill taco shells with lettuce, avocado, salsa, and beans."
+                "instructions": "Warm taco shells in the oven at 350°F for 5 minutes; slice avocado, shred lettuce, and warm beans; fill shells with lettuce, avocado, salsa, and beans."
             },
             "Vegan Burritos": {
                 "dish": "Vegan Burritos",
                 "time": 25,
                 "ingredients": ["4 large flour tortillas", "1 cup cooked beans", "1 cup rice, cooked", "1 cup shredded lettuce", "1/2 cup salsa"],
-                "instructions": "Roll beans, rice, lettuce, and salsa in tortillas."
+                "instructions": "Warm tortillas in a pan; layer with rice, beans, lettuce, and salsa; roll up the tortillas and serve."
             },
             "Vegan Enchiladas": {
                 "dish": "Vegan Enchiladas",
                 "time": 50,
                 "ingredients": ["8 corn tortillas", "1 cup cooked beans", "1 cup vegan cheese", "1 cup salsa"],
-                "instructions": "Roll beans and vegan cheese in tortillas, top with salsa, and bake at 350°F for 25 minutes."
+                "instructions": "Preheat oven to 350°F; fill tortillas with beans and vegan cheese, roll them up, place in a baking dish, top with salsa, and bake for 25 minutes."
             },
             "Vegan Quesadillas": {
                 "dish": "Vegan Quesadillas",
                 "time": 20,
                 "ingredients": ["2 flour tortillas", "1 cup vegan cheese", "1/4 cup salsa", "1 avocado, sliced"],
-                "instructions": "Grill tortillas with vegan cheese, serve with salsa and avocado."
+                "instructions": "Place vegan cheese between tortillas and grill in a skillet until golden brown, then serve with salsa and sliced avocado."
             },
             "Vegan Fajitas": {
                 "dish": "Vegan Fajitas",
                 "time": 25,
                 "ingredients": ["1 bell pepper, sliced", "1 onion, sliced", "1 tbsp fajita seasoning", "4 tortillas"],
-                "instructions": "Sauté bell peppers and onions with fajita seasoning, serve with tortillas."
+                "instructions": "Sauté bell pepper and onion with fajita seasoning until tender; serve with warm tortillas."
             },
             "Vegan Tamales": {
                 "dish": "Vegan Tamales",
@@ -193,31 +193,31 @@ class mexican_recipe_API:
                 "dish": "Crispy Fish Tacos",
                 "time": 30,
                 "ingredients": ["500g white fish fillets", "8 corn tortillas", "1 cup shredded cabbage", "1/2 cup salsa", "1 lime"],
-                "instructions": "Fry fish fillets until crispy, place in tortillas, and top with cabbage, salsa, and lime juice."
+                "instructions": "Fry fish fillets in hot oil until crispy and golden, then place them in warm corn tortillas and top with shredded cabbage, salsa, and a squeeze of lime juice."
             },
             "Grilled Fish Burritos": {
                 "dish": "Grilled Fish Burritos",
                 "time": 30,
                 "ingredients": ["500g white fish fillets", "4 tortillas", "1 cup rice", "1 cup beans", "1/4 cup salsa"],
-                "instructions": "Grill fish fillets for 5-7 minutes. Roll fish with rice, beans, and salsa in tortillas."
+                "instructions": "Grill the fish fillets for 5-7 minutes, then roll them up with cooked rice, beans, and salsa in flour tortillas to create burritos."
             },
             "Fish Veracruz": {
                 "dish": "Fish Veracruz",
                 "time": 45,
                 "ingredients": ["500g white fish fillets", "2 tomatoes, chopped", "1/4 cup olives", "1 onion, sliced", "1 bell pepper, sliced"],
-                "instructions": "Simmer fish fillets with tomatoes, olives, onions, and bell peppers for 15-20 minutes until fully cooked."
+                "instructions": "Simmer the fish fillets with chopped tomatoes, olives, sliced onions, and bell peppers for 15-20 minutes, until the fish is fully cooked and the flavors have melded together."
             },
             "Fish Ceviche": {
                 "dish": "Fish Ceviche",
                 "time": 30,
                 "ingredients": ["500g white fish, diced", "Juice of 3 limes", "1 tomato, chopped", "1 onion, chopped", "1/4 cup cilantro, chopped"],
-                "instructions": "Marinate fish in lime juice for 2-3 hours, then mix with tomato, onion, and cilantro."
+                "instructions": "Marinate the diced fish in lime juice for 2-3 hours until it 'cooks' in the acidity, then mix with chopped tomato, onion, and cilantro for a fresh ceviche."
             },
             "Fish Fajitas": {
                 "dish": "Fish Fajitas",
                 "time": 25,
                 "ingredients": ["500g white fish fillets", "1 bell pepper, sliced", "1 onion, sliced", "1 tbsp fajita seasoning", "4 tortillas"],
-                "instructions": "Cook fish fillets with bell peppers and onions, season with fajita seasoning, and serve with tortillas."
+                "instructions": "Cook the fish fillets with sliced bell peppers and onions in a skillet, season with fajita seasoning, then serve with warm tortillas."
             }
         }
         return recipes.get(name)
@@ -229,37 +229,37 @@ class mexican_recipe_API:
                 "dish": "Lamb Tacos",
                 "time": 30,
                 "ingredients": ["500g ground lamb", "8 taco shells", "1 onion, diced", "1/4 cup cilantro, chopped", "1/2 cup salsa"],
-                "instructions": "Cook ground lamb in a skillet, season with spices, and fill taco shells with lamb, onions, cilantro, and salsa."
+                "instructions": "Cook ground lamb in a skillet over medium heat for 7-10 minutes, breaking it up as it cooks. Season with your choice of spices. Fill taco shells with cooked lamb, diced onions, fresh cilantro, and salsa."
             },
             "Lamb Burritos": {
                 "dish": "Lamb Burritos",
                 "time": 25,
                 "ingredients": ["500g ground lamb", "4 large flour tortillas", "1 cup rice, cooked", "1 cup beans", "1 cup shredded cheese"],
-                "instructions": "Brown lamb in a skillet, roll with rice, beans, and cheese in tortillas."
+                "instructions": "Brown the ground lamb in a skillet over medium heat for 8-10 minutes. Lay the cooked lamb on each flour tortilla and top with rice, beans, and shredded cheese. Roll the tortillas to form burritos."
             },
             "Lamb Fajitas": {
                 "dish": "Lamb Fajitas",
                 "time": 25,
                 "ingredients": ["500g lamb, sliced", "1 bell pepper, sliced", "1 onion, sliced", "2 tbsp fajita seasoning", "Tortillas for serving"],
-                "instructions": "Sauté lamb, bell peppers, and onions with fajita seasoning. Serve with tortillas."
+                "instructions": "Sauté sliced lamb, bell peppers, and onions in a skillet with fajita seasoning over medium-high heat for 8-10 minutes. Serve with warm tortillas."
             },
             "Lamb Enchiladas": {
                 "dish": "Lamb Enchiladas",
                 "time": 60,
                 "ingredients": ["500g lamb, shredded", "8 corn tortillas", "1 cup shredded cheese", "1 cup salsa"],
-                "instructions": "Roll lamb in tortillas, top with salsa and cheese, bake at 350°F for 25 minutes."
+                "instructions": "Roll the shredded lamb in corn tortillas and place them in a baking dish. Top with salsa and shredded cheese. Bake at 350°F for 25 minutes, or until cheese is melted and bubbly."
             },
             "Braised Lamb Shank": {
                 "dish": "Braised Lamb Shank",
                 "time": 120,
                 "ingredients": ["2 lamb shanks", "2 tomatoes, chopped", "1 onion, chopped", "1 tbsp cinnamon", "1 tbsp cumin", "1 tbsp garlic powder"],
-                "instructions": "Brown lamb shanks in a pot. Add tomatoes, onions, cinnamon, cumin, garlic powder, and simmer for 2 hours."
+                "instructions": "Brown lamb shanks in a pot over medium-high heat for 5-7 minutes. Add chopped tomatoes, onions, cinnamon, cumin, and garlic powder. Simmer for 2 hours, until lamb is tender."
             },
             "Lamb Quesadillas": {
                 "dish": "Lamb Quesadillas",
                 "time": 20,
                 "ingredients": ["500g lamb, cooked and shredded", "2 flour tortillas", "1 cup shredded cheese", "1/4 cup salsa"],
-                "instructions": "Grill tortillas with lamb and cheese. Serve with salsa."
+                "instructions": "Place cooked and shredded lamb and shredded cheese between two flour tortillas. Grill on medium heat for 3-4 minutes per side, until golden and crispy. Serve with salsa."
             }
         }
         return recipes.get(name)

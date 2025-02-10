@@ -199,7 +199,6 @@ def generate_data():
    initStudentData()
    initUsers()
    initSections()
-   initRecipeFeedback()
    initGroups()
 #    initChannels()
    initPosts()

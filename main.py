@@ -39,6 +39,7 @@ from api.italian_recipes import italian_recipe_api
 from api.mexican_recipes import mexican_recipe_api
 from api.japanese_recipes import japanese_recipe_api
 from api.natcountrysearch import country_api
+from api.posting import posting_api
 
 
 #from api.vote import vote_api
@@ -54,6 +55,8 @@ from model.vote import Vote, initVotes
 from model.chinese_recipes import Recipe, initRecipes, save_recipe
 from model.student import Student, initStudentData
 from model.natcountrysearch import CountryDish, initCountryDishes
+from model.posting import Posting, initPostings
+
 # server only Views
 
 
@@ -79,8 +82,7 @@ app.register_blueprint(italian_recipe_api)
 app.register_blueprint(mexican_recipe_api)
 app.register_blueprint(japanese_recipe_api)
 app.register_blueprint(country_api)
-
-
+app.register_blueprint(posting_api)
 
 
 # Tell Flask-Login the view function name of your login route
@@ -200,11 +202,12 @@ def generate_data():
    initUsers()
    initSections()
    initGroups()
-#    initChannels()
+   #initChannels()
    initPosts()
    initVotes()
    initCountryDishes()
-  
+   initPostings()
+    
 # Backup the old database
 def backup_database(db_uri, backup_uri):
    """Backup the current database."""
@@ -304,18 +307,19 @@ def edit_recipe(recipe_id):
 
 # Extract data from the existing database
 def extract_data():
-   data = {}
-   with app.app_context():
-       data['users'] = [user.read() for user in User.query.all()]
-       data['sections'] = [section.read() for section in Section.query.all()]
-       data['groups'] = [group.read() for group in Group.query.all()]
-       data['channels'] = [channel.read() for channel in Channel.query.all()]
-       data['posts'] = [post.read() for post in Post.query.all()]
-       data['CountryDishes'] = [CountryDish() for CountryDish in CountryDish.query.all()]
-       data['recipe'] = [recipe.read() for recipe in Recipe.query.all()]
-       data['students'] = [student.read() for student in Student.query.all()]
-      
-   return data
+    data = {}
+    with app.app_context():
+        data['users'] = [user.read() for user in User.query.all()]
+        data['sections'] = [section.read() for section in Section.query.all()]
+        data['groups'] = [group.read() for group in Group.query.all()]
+        data['channels'] = [channel.read() for channel in Channel.query.all()]
+        data['posts'] = [post.read() for post in Post.query.all()]
+        data['CountryDishes'] = [CountryDish() for CountryDish in CountryDish.query.all()]
+        data['recipe'] = [recipe.read() for recipe in Recipe.query.all()]
+        data['students'] = [student.read() for student in Student.query.all()]
+        data['posting'] = [posting.read() for posting in Posting.query.all()]
+
+    return data
 
 
 # Save extracted data to JSON files
@@ -330,25 +334,26 @@ def save_data_to_json(data, directory='backup'):
 
 # Load data from JSON files
 def load_data_from_json(directory='backup'):
-   data = {}
-   for table in ['users', 'sections', 'groups', 'channels', 'posts', 'dishes', 'country_dishes', 'students' ]:
-       with open(os.path.join(directory, f'{table}.json'), 'r') as f:
-           data[table] = json.load(f)
-   return data
+    data = {}
+    for table in ['users', 'sections', 'groups', 'channels', 'posts', 'dishes', 'country_dishes', 'students', 'posting' ]:
+        with open(os.path.join(directory, f'{table}.json'), 'r') as f:
+            data[table] = json.load(f)
+    return data
 
 
 # Restore data to the new database
 def restore_data(data):
-   with app.app_context():
-       users = User.restore(data['users'])
-       _ = Section.restore(data['sections'])
-       _ = Group.restore(data['groups'], users)
-       _ = Channel.restore(data['channels'])
-       _ = Post.restore(data['posts'])
-       _ = CountryDish.restore(data['country_dishes'])
-       _ = Recipe.restore(data['recipe'])
-       _ = Student.restore(data['students'])
-   print("Data restored to the new database.")
+    with app.app_context():
+        users = User.restore(data['users'])
+        _ = Section.restore(data['sections'])
+        _ = Group.restore(data['groups'], users)
+        _ = Channel.restore(data['channels'])
+        _ = Post.restore(data['posts'])
+        _ = CountryDish.restore(data['country_dishes'])
+        _ = Recipe.restore(data['recipe'])
+        _ = Student.restore(data['students'])
+        _ = Posting.restore(data['posting'])
+    print("Data restored to the new database.")
 
 
 # Define a command to backup data

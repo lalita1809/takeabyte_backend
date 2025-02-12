@@ -12,6 +12,7 @@ from werkzeug.security import generate_password_hash
 import shutil
 import google.generativeai as genai
 
+from flask_cors import CORS
 
 
 
@@ -32,14 +33,15 @@ from api.post import post_api
 #from api.carphoto import car_apihttp://127.0.0.1:8887
 #from api.carChat import car_chat_api
 #from api.student import student_api
-from api.indian_recipes import indian_recipe_api
-from api.chinese_recipes import chinese_recipe_api
+#from api.indian_recipes import indian_recipe_api
+#rom api.chinese_recipes import chinese_recipe_api
 from api.thai_recipes import thai_recipe_api
 from api.italian_recipes import italian_recipe_api
 from api.mexican_recipes import mexican_recipe_api
 from api.japanese_recipes import japanese_recipe_api
 from api.natcountrysearch import country_api
 from api.posting import posting_api
+from api.feedback import feedback_api
 
 
 #from api.vote import vote_api
@@ -56,6 +58,8 @@ from model.chinese_recipes import Recipe, initRecipes, save_recipe
 from model.student import Student, initStudentData
 from model.natcountrysearch import CountryDish, initCountryDishes
 from model.posting import Posting, initPostings
+from model.feedback import Feedback, initFeedback
+
 
 # server only Views
 
@@ -75,14 +79,16 @@ from model.posting import Posting, initPostings
 #app.register_blueprint(vote_api)
 #app.register_blueprint(car_api)
 #app.register_blueprint(student_api)
-app.register_blueprint(chinese_recipe_api)
-app.register_blueprint(indian_recipe_api)
+#app.register_blueprint(chinese_recipe_api)
+#app.register_blueprint(indian_recipe_api)
 app.register_blueprint(thai_recipe_api)
 app.register_blueprint(italian_recipe_api)
 app.register_blueprint(mexican_recipe_api)
 app.register_blueprint(japanese_recipe_api)
 app.register_blueprint(country_api)
 app.register_blueprint(posting_api)
+app.register_blueprint(feedback_api)
+
 
 
 # Tell Flask-Login the view function name of your login route
@@ -207,6 +213,8 @@ def generate_data():
    initVotes()
    initCountryDishes()
    initPostings()
+   initFeedback()
+   
     
 # Backup the old database
 def backup_database(db_uri, backup_uri):
@@ -318,6 +326,7 @@ def extract_data():
         data['recipe'] = [recipe.read() for recipe in Recipe.query.all()]
         data['students'] = [student.read() for student in Student.query.all()]
         data['posting'] = [posting.read() for posting in Posting.query.all()]
+        data['feedback'] = [feedback.read() for feedback in Feedback.query.all()]
 
     return data
 
@@ -353,6 +362,7 @@ def restore_data(data):
         _ = Recipe.restore(data['recipe'])
         _ = Student.restore(data['students'])
         _ = Posting.restore(data['posting'])
+        _ = Feedback.restore(data['feedback'])
     print("Data restored to the new database.")
 
 
@@ -372,7 +382,8 @@ def restore_data_command():
   
 # Register the custom command group with the Flask application
 app.cli.add_command(custom_cli)
-      
+CORS(app)  # ✅ Allow all origins
+
 # this runs the flask application on the development server
 if __name__ == "__main__":
    with app.app_context():

@@ -1,92 +1,147 @@
-import jwt
-from flask import Blueprint, request, jsonify, current_app, Response, g
-from flask_restful import Api, Resource  # used for REST API building
-from datetime import datetime
-from __init__ import app
-from api.jwt_authorize import token_required
-from model.feedback import Feedback
+from flask import Blueprint, jsonify, request
+from flask_restful import Api, Resource
 
-"""
-This Blueprint object is used to define APIs for the Feedback model.
-- Blueprint is used to modularize application files.
-- This Blueprint is registered to the Flask app in main.py.
-"""
+from model.feedback import Feedback  # used for REST API building
+
+# Create Blueprint for API
 feedback_api = Blueprint('feedback_api', __name__, url_prefix='/api')
-
-"""
-The Api object is connected to the Blueprint object to define the API endpoints.
-- The API object is used to add resources to the API.
-- The objects added are mapped to code that contains the actions for the API.
-- For more information, refer to the API docs: https://flask-restful.readthedocs.io/en/latest/api.html
-"""
 api = Api(feedback_api)
 
 class FeedbackAPI:
-    """
-    Define the API CRUD endpoints for the Feedback model.
-    There are four operations that correspond to common HTTP methods:
-    - feedback: create a new feedback
-    - get: read feedbacks
-    - put: update a feedback
-    - delete: delete a feedback
-    """
-    class _CRUD(Resource):
-        @token_required()
-        def post(self):
-            # Obtain the current user from the token required setting in the global context
-            current_user = g.current_user
-            # Obtain the request data sent by the RESTful client API
-            data = request.get_json()
-            # Create a new feedback object using the data from the request
-            feedback = feedback(data['content'], data['post_id'], current_user.id)
-            # Save the feedback object using the Object Relational Mapper (ORM) method defined in the model
-            feedback.create()
-            # Return response to the client in JSON format, converting Python dictionaries to JSON format
-            return jsonify(feedback.read())
+    @staticmethod
+    def get_feedback(name):
+        feedback = {
+            "KungPao": {
+                "dish_name": "KungPao",
+                "thumbs_up": 10,
+                "thumbs_down": 15,
+            },
+            "OrangeChicken": {
+                "dish_name": "Orange Chicken",
+                "thumbs_up": 15,
+                "thumbs_down": 25,
+            },
+        }
+        return feedback.get(name)
 
-        @token_required()
+    class _KungPao(Resource): 
+             def get(self):
+                feedback = FeedbackAPI.get_feedback("KungPao")
+                if feedback:
+                        return jsonify(feedback) 
+                return {"message": "Data not found"}, 404
+
+    class _OrangeChicken(Resource): 
         def get(self):
-            # Obtain the id of the post
-            data = request.get_json()
-            post_id = data['id']
-            # Find all the feedbacks by the current user
-            feedbacks = Feedback.query.filter(Feedback._post_id == data['id']).all()
-            # Prepare a JSON list of all the feedbacks, uses for loop shortcut called list comprehension
-            json_ready = [feedback.read() for feedback in feedbacks]
-            # Return a JSON list, converting Python dictionaries to JSON format
-            return jsonify(json_ready)
+            feedback = FeedbackAPI.get_feedback("OrangeChicken")
+            if feedback:
+                return jsonify(feedback) 
+            return {"message": "Data not found"}, 404
 
-        @token_required()
-        def put(self):
-            # Obtain the current user
-            current_user = g.current_user
-            # Obtain the request data
-            data = request.get_json()
-            # Find the current feedback from the database table(s)
-            feedback = Feedback.query.get(data['id'])
-            # Update the feedback
-            feedback._content = data['content']
-            # Save the feedback
-            feedback.update()
-            # Return response
+    class _AddFeedback(Resource):
+        def post(self):
+            """
+            Create new feedback.
+            """
+            body = request.get_json()
+
+            name = body.get('name')
+            cuisine = body.get('cuisine')
+            recipe = body.get('recipe')
+            thumbs_up = body.get('thumbs_up')
+            thumbs_down = body.get('thumbs_down')
+            written_feedback = body.get('written_feedback')
+
+            if not name or len(name) < 2:
+                return {'message': 'Name is missing or too short'}, 400
+            if not cuisine or len(cuisine) < 2:
+                return {'message': 'Cuisine is missing or too short'}, 400
+            if recipe is None:
+                return {'message': 'Recipe is missing'}, 400
+            if thumbs_up is None:
+                return {'message': 'Thumbs Up is missing'}, 400
+            if thumbs_down is None:
+                return {'message': 'Thumbs Down is missing'}, 400
+            if not written_feedback or len(written_feedback) < 2:
+                return {'message': 'Written Feedback is missing or too short'}, 400
+
+            feedback_obj = Feedback(
+                name=name,
+                cuisine=cuisine,
+                recipe=recipe,
+                thumbs_up=thumbs_up,
+                thumbs_down=thumbs_down,
+                written_feedback=written_feedback
+            )
+
+            feedback = feedback_obj.create()
+            if not feedback:
+                return {'message': f'Error processing feedback for {name}'}, 400
+
             return jsonify(feedback.read())
 
-        @token_required()
-        def delete(self):
-            # Obtain the current user
-            current_user = g.current_user
-            # Obtain the request data
-            data = request.get_json()
-            # Find the current feedback from the database table(s)
-            feedback = Feedback.query.get(data['id'])
-            # Delete the feedback using the ORM method defined in the model
-            feedback.delete()
-            # Return response
-            return jsonify({"message": "Feedback deleted"})
+    class _ReadFeedback(Resource):
+        def get(self, name):
+            """
+            Retrieve feedback by dish name.
+            """
+            feedback = Feedback.query.filter_by(name=name).first()
+            if not feedback:
+                return {'message': f'Feedback for {name} not found'}, 404
+            return jsonify(feedback.read())
 
-    """
-    Map the _CRUD class to the API endpoints for /feedback.
-    - The API resource class inherits from flask_restful.Resource.
-    - The _CRUD class defines the HTTP methods for the API.
-    """
-    api.add_resource(_CRUD, '/feedback')
+    class _ReadAllFeedback(Resource):
+        def get(self):
+            """
+            Retrieve all feedback.
+            """
+            feedbacks = Feedback.query.all()
+            feedback_data = [feedback.read() for feedback in feedbacks]
+            return jsonify(feedback_data)
+
+    class _UpdateFeedback(Resource):
+        def put(self):
+            """
+            Update feedback.
+            """
+            body = request.get_json()
+            name = body.get('name')
+            if not name:
+                return {'message': 'Dish name is required for updating'}, 400
+
+            feedback = Feedback.query.filter_by(name=name).first()
+            if not feedback:
+                return {'message': f'Feedback for {name} not found'}, 404
+
+            feedback.update(body)
+            return jsonify(feedback.read())
+
+    class _DeleteFeedback(Resource):
+        def delete(self):
+            """
+            Delete feedback.
+            """
+            body = request.get_json()
+            name = body.get('name')
+
+            if not name:
+                return {'message': 'Dish name is required'}, 400
+
+            feedback = Feedback.query.filter_by(name=name).first()
+            if not feedback:
+                return {'message': f'Feedback for {name} not found'}, 404
+
+            feedback.delete()
+            return jsonify({'message': f'Feedback for {name} deleted'})
+
+# Register API routes
+api.add_resource(FeedbackAPI._KungPao, '/feedback/KungPao')
+api.add_resource(FeedbackAPI._OrangeChicken, '/feedback/OrangeChicken')
+api.add_resource(FeedbackAPI._AddFeedback, '/feedback/addFeedback')
+api.add_resource(FeedbackAPI._ReadFeedback, '/feedback/get/<string:name>')
+api.add_resource(FeedbackAPI._ReadAllFeedback, '/feedback/getAll')
+api.add_resource(FeedbackAPI._UpdateFeedback, '/feedback/update')
+api.add_resource(FeedbackAPI._DeleteFeedback, '/feedback/delete')
+
+# Instantiate API class
+feedback_api_instance = FeedbackAPI()

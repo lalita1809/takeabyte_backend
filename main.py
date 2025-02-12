@@ -32,7 +32,7 @@ from api.post import post_api
 #from api.messages_api import messages_api # Adi added this, messages for his website
 #from api.carphoto import car_apihttp://127.0.0.1:8887
 #from api.carChat import car_chat_api
-#from api.student import student_api
+from api.student import student_api
 #from api.indian_recipes import indian_recipe_api
 #rom api.chinese_recipes import chinese_recipe_api
 from api.thai_recipes import thai_recipe_api
@@ -78,7 +78,7 @@ from model.feedback import Feedback, initFeedback
 #app.register_blueprint(nestImg_api)
 #app.register_blueprint(vote_api)
 #app.register_blueprint(car_api)
-#app.register_blueprint(student_api)
+app.register_blueprint(student_api)
 #app.register_blueprint(chinese_recipe_api)
 #app.register_blueprint(indian_recipe_api)
 app.register_blueprint(thai_recipe_api)

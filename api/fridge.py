@@ -44,7 +44,7 @@ def add_grocery():
   
 
 
-@fridge_api.route('/fridge', methods=['GET'])
+@fridge_api.route('/api/fridge', methods=['GET'])
 def get_fridges():
     try:
         fridges = Fridge.query.all()

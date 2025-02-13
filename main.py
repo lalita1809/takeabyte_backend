@@ -34,7 +34,7 @@ from api.post import post_api
 #from api.carChat import car_chat_api
 from api.student import student_api
 #from api.indian_recipes import indian_recipe_api
-#rom api.chinese_recipes import chinese_recipe_api
+from api.chinese_recipes import chinese_recipe_api
 from api.thai_recipes import thai_recipe_api
 from api.italian_recipes import italian_recipe_api
 from api.mexican_recipes import mexican_recipe_api
@@ -78,7 +78,7 @@ from model.fridge import Fridge, initFridge
 #app.register_blueprint(vote_api)
 #app.register_blueprint(car_api)
 app.register_blueprint(student_api)
-#app.register_blueprint(chinese_recipe_api)
+app.register_blueprint(chinese_recipe_api)
 #app.register_blueprint(indian_recipe_api)
 app.register_blueprint(thai_recipe_api)
 app.register_blueprint(italian_recipe_api)

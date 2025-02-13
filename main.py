@@ -11,7 +11,7 @@ from flask import current_app
 from werkzeug.security import generate_password_hash
 import shutil
 import google.generativeai as genai
-
+from api.fridge import fridge_api
 from flask_cors import CORS
 
 
@@ -33,8 +33,8 @@ from api.post import post_api
 #from api.carphoto import car_apihttp://127.0.0.1:8887
 #from api.carChat import car_chat_api
 from api.student import student_api
-from api.indian_recipes import indian_recipe_api
-from api.chinese_recipes import chinese_recipe_api
+#from api.indian_recipes import indian_recipe_api
+#rom api.chinese_recipes import chinese_recipe_api
 from api.thai_recipes import thai_recipe_api
 from api.italian_recipes import italian_recipe_api
 from api.mexican_recipes import mexican_recipe_api
@@ -42,7 +42,6 @@ from api.japanese_recipes import japanese_recipe_api
 from api.natcountrysearch import country_api
 from api.posting import posting_api
 from api.feedback import feedback_api
-
 
 #from api.vote import vote_api
 # database Initialization functions
@@ -59,7 +58,7 @@ from model.student import Student, initStudentData
 from model.natcountrysearch import CountryDish, initCountryDishes
 from model.posting import Posting, initPostings
 from model.feedback import Feedback, initFeedback
-
+from model.fridge import Fridge, initFridge
 
 # server only Views
 
@@ -81,9 +80,6 @@ from model.feedback import Feedback, initFeedback
 app.register_blueprint(student_api)
 #app.register_blueprint(chinese_recipe_api)
 #app.register_blueprint(indian_recipe_api)
-#app.register_blueprint(student_api)
-app.register_blueprint(chinese_recipe_api)
-app.register_blueprint(indian_recipe_api)
 app.register_blueprint(thai_recipe_api)
 app.register_blueprint(italian_recipe_api)
 app.register_blueprint(mexican_recipe_api)
@@ -91,7 +87,7 @@ app.register_blueprint(japanese_recipe_api)
 app.register_blueprint(country_api)
 app.register_blueprint(posting_api)
 app.register_blueprint(feedback_api)
-
+app.register_blueprint(fridge_api)
 
 
 # Tell Flask-Login the view function name of your login route
@@ -217,7 +213,7 @@ def generate_data():
    initCountryDishes()
    initPostings()
    initFeedback()
-   
+   initFridge()
     
 # Backup the old database
 def backup_database(db_uri, backup_uri):
@@ -330,6 +326,7 @@ def extract_data():
         data['students'] = [student.read() for student in Student.query.all()]
         data['posting'] = [posting.read() for posting in Posting.query.all()]
         data['feedback'] = [feedback.read() for feedback in Feedback.query.all()]
+        data['fridge'] = [fridge.read() for fridge in Fridge.query.all()]
 
     return data
 
@@ -347,7 +344,7 @@ def save_data_to_json(data, directory='backup'):
 # Load data from JSON files
 def load_data_from_json(directory='backup'):
     data = {}
-    for table in ['users', 'sections', 'groups', 'channels', 'posts', 'dishes', 'country_dishes', 'students', 'posting' ]:
+    for table in ['users', 'sections', 'groups', 'channels', 'posts', 'dishes', 'country_dishes','fridge', 'students', 'posting' ]:
         with open(os.path.join(directory, f'{table}.json'), 'r') as f:
             data[table] = json.load(f)
     return data
@@ -366,6 +363,8 @@ def restore_data(data):
         _ = Student.restore(data['students'])
         _ = Posting.restore(data['posting'])
         _ = Feedback.restore(data['feedback'])
+        _ = Fridge.restore(data['fridge'])
+
     print("Data restored to the new database.")
 
 
@@ -390,7 +389,5 @@ CORS(app)  # ✅ Allow all origins
 # this runs the flask application on the development server
 if __name__ == "__main__":
    with app.app_context():
-       app.run(debug=True, host="0.0.0.0", port="8403")
-
-
+       app.run(debug=True, host="0.0.0.0", port="8887")
 

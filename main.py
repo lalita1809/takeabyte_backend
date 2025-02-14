@@ -236,7 +236,7 @@ def ai_food_help():
    if not question:
        return jsonify({"error": "No question provided."}), 400
    try:
-       response = model.generate_content(f"Your name is byte you are a cooking assistant ai chat bot with the sole purpose of answering food related questions, under any circumstances don't answer any non-food related questions. \nHere is your prompt: {question}")
+       response = model.generate_content(f"Your name is byte you are a cooking assistant ai chat bot who answers questions about what users want to add in their frideg and how many, basically when the user asks you about a recipe, you tell it the ingridients neeeded amd the quantity, also do not make your answers long and complicated, keep it simple \nHere is your prompt: {question}")
        return jsonify({"response": response.text}), 200
    except Exception as e:
        print("error!")

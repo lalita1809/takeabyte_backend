@@ -46,31 +46,19 @@ class FeedbackAPI:
             body = request.get_json()
 
             name = body.get('name')
-            cuisine = body.get('cuisine')
-            recipe = body.get('recipe')
-            thumbs_up = body.get('thumbs_up')
-            thumbs_down = body.get('thumbs_down')
+            stars = body.get('stars')
             written_feedback = body.get('written_feedback')
 
             if not name or len(name) < 2:
                 return {'message': 'Name is missing or too short'}, 400
-            if not cuisine or len(cuisine) < 2:
-                return {'message': 'Cuisine is missing or too short'}, 400
-            if recipe is None:
-                return {'message': 'Recipe is missing'}, 400
-            if thumbs_up is None:
-                return {'message': 'Thumbs Up is missing'}, 400
-            if thumbs_down is None:
-                return {'message': 'Thumbs Down is missing'}, 400
+            if stars is None:
+                return {'message': 'Stars is missing'}, 400
             if not written_feedback or len(written_feedback) < 2:
                 return {'message': 'Written Feedback is missing or too short'}, 400
 
             feedback_obj = Feedback(
                 name=name,
-                cuisine=cuisine,
-                recipe=recipe,
-                thumbs_up=thumbs_up,
-                thumbs_down=thumbs_down,
+                stars=stars,
                 written_feedback=written_feedback
             )
 
@@ -106,8 +94,8 @@ class FeedbackAPI:
             """
             body = request.get_json()
             name = body.get('name')
-            if not name:
-                return {'message': 'Dish name is required for updating'}, 400
+           # if not name:
+                #return {'message': 'Dish name is required for updating'}, 400
 
             feedback = Feedback.query.filter_by(name=name).first()
             if not feedback:

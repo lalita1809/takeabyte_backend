@@ -7,13 +7,13 @@ class Student(db.Model):
     name = db.Column(db.String(100), nullable=False)
     age = db.Column(db.Integer, nullable=False)
     grade = db.Column(db.String(50), nullable=False)
-    favorite_color = db.Column(db.String(50), nullable=False)
+    favorite_dish = db.Column(db.String(50), nullable=False)
     
-    def __init__(self, name, age, grade, favorite_color):
+    def __init__(self, name, age, grade, favorite_dish):
         self.name = name
         self.age = age
         self.grade = grade
-        self.favorite_color = favorite_color
+        self.favorite_dish = favorite_dish
     
     def create(self):
         try:
@@ -35,7 +35,7 @@ class Student(db.Model):
             "name": self.name,
             "age": self.age,
             "grade": self.grade,
-            "favorite_color": self.favorite_color,
+            "favorite_dish": self.favorite_dish,
         }
         return data
 
@@ -55,7 +55,7 @@ class Student(db.Model):
         name = inputs.get("name", "")
         age = inputs.get("age", "")
         grade = inputs.get("grade", "")
-        favorite_color = inputs.get("favorite_color", "")
+        favorite_dish = inputs.get("favorite_dish", "")
 
         # Update table with new data
         if name:
@@ -64,8 +64,8 @@ class Student(db.Model):
             self.age = age
         if grade:
             self.grade = grade
-        if favorite_color:
-            self.favorite_color = favorite_color
+        if favorite_dish:
+            self.favorite_dish = favorite_dish
             
         try:
             db.session.commit()
@@ -108,9 +108,9 @@ def initStudentData():
     with app.app_context():
         db.create_all()
         # Example student data
-        s1 = Student(name='Bailey', age=16, grade="11th", favorite_color="green")
-        s2 = Student(name='Ahmad', age=15, grade="10th", favorite_color="blue")
-        s3 = Student(name='Nathan', age=16, grade="10th", favorite_color="red")
+        s1 = Student(name='Bailey', age=16, grade="11th", favorite_dish="pasta")
+        s2 = Student(name='Ahmad', age=15, grade="10th", favorite_dish="pizza")
+        s3 = Student(name='Nathan', age=16, grade="10th", favorite_dish="cheeseburger")
         students = [s1, s2, s3]
         
         for member in students:

@@ -1,150 +1,107 @@
-# feedback.py
 from sqlite3 import IntegrityError
-from sqlalchemy import Text
 from __init__ import app, db
-from model.user import User
-from model.post import Post
 
-class Feedback(db.Model):
-    """
-    Feedback Model
-    
-    The Feedback class represents an individual contribution or discussion within a post.
-    
-    Attributes:
-        id (db.Column): The primary key, an integer representing the unique identifier for the post.
-        _content (db.Column): A Text blob representing the content of the post.
-        _user_id (db.Column): An integer representing the user who created the post.
-        _post_id (db.Column): An integer representing the post to which the post belongs.
-    """
+class Feedback(db.Model): 
     __tablename__ = 'feedbacks'
-
+    
     id = db.Column(db.Integer, primary_key=True)
-    _content = db.Column(Text, nullable=False)
-    _user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    _post_id = db.Column(db.Integer, db.ForeignKey('posts.id'), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
+    cuisine = db.Column(db.String(50), nullable=False)
+    recipe = db.Column(db.Text, nullable=False)
+    thumbs_up = db.Column(db.Integer, default=0)
+    thumbs_down = db.Column(db.Integer, default=0)
+    written_feedback = db.Column(db.Text)
 
-    def __init__(self, content, user_id, post_id):
-        """
-        Constructor, 1st step in object creation.
-  
-            title (str): The title of the post.
-            content (str): The content of the post.
-            user_id (int): The user who created the post.
-            post_id (int): The post to which the post belongs.
-        """
-        self._content = content
-        self._user_id = user_id
-        self._post_id = post_id
-
-    def __repr__(self):
-        """
-        The __repr__ method is a special method used to represent the object in a string format.
-        Called by the repr(post) built-in function, where post is an instance of the Feedback class.
+    def __init__(self, name, cuisine, recipe, thumbs_up=0, thumbs_down=0, written_feedback=None):
+        self.name = name
+        self.cuisine = cuisine
+        self.recipe = recipe
+        self.thumbs_up = thumbs_up
+        self.thumbs_down = thumbs_down
+        self.written_feedback = written_feedback
         
-        Returns:
-            str: A text representation of how to create the object.
-        """
-        return f"Feedback(id={self.id}, content={self._content}, user_id={self._user_id}, post_id={self._post_id})"
-
-    def create(self):
-        """
-        The create method adds the object to the database and commits the transaction.
-        
-        Uses:
-            The db ORM methods to add and commit the transaction.
-        
-        Raises:
-            Exception: An error occurred when adding the object to the database.
-        """
-        try:
-            db.session.add(self)
-            db.session.commit()
-        except Exception as e:
-            db.session.rollback()
-            raise e
-        
-    def read(self):
-        """
-        The read method retrieves the object data from the object's attributes and returns it as a dictionary.
-        
-        Uses:
-            The Post.query and User.query methods to retrieve the post and user objects.
-        
-        Returns:
-            dict: A dictionary containing the post data, including user and post names.
-        """
-        user = User.query.get(self._user_id)
-        post = Post.query.get(self._post_id)
-        data = {
-            "id": self.id,
-            "content": self._content,
-            "user_name": user.name if user else None,
-            "post_title": post.title if post else None,
-        }
-        return data
-    
-    def update(self):
-        """
-        The update method commits the transaction to the database.
-        
-        Uses:
-            The db ORM method to commit the transaction.
-        
-        Raises:
-            Exception: An error occurred when updating the object in the database.
-        """
-        try:
-            db.session.commit()
-        except Exception as e:
-            db.session.rollback()
-            raise e
-    
     def delete(self):
-        """
-        The delete method removes the object from the database and commits the transaction.
-        
-        Uses:
-            The db ORM methods to delete and commit the transaction.
-        
-        Raises:
-            Exception: An error occurred when deleting the object from the database.
-        """    
         try:
-            db.session.delete(self)
+            db.session.delete(self)  
+            db.session.commit()  
+            return self
+        except Exception as e:  # Catch all database-related errors
+            db.session.rollback()
+            print(f"Error deleting feedback: {e}")
+            return None
+    def create(self):
+        try:
+            db.session.add(self)  
+            db.session.commit()  
+            return self
+        except Exception as e:  # Catch all database-related errors
+            db.session.rollback()
+            print(f"Error creating feedback: {e}")
+            return None
+    
+    def read(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "cuisine": self.cuisine,
+            "recipe": self.recipe,
+            "thumbs_up": self.thumbs_up,
+            "thumbs_down": self.thumbs_down,
+            "written_feedback": self.written_feedback,
+        }
+
+    def update(self, inputs):
+        if not isinstance(inputs, dict):
+            return self
+
+        self.name = inputs.get("name", self.name)
+        self.cuisine = inputs.get("cuisine", self.cuisine)
+        self.recipe = inputs.get("recipe", self.recipe)
+        self.thumbs_up = inputs.get("thumbs_up", self.thumbs_up)
+        self.thumbs_down = inputs.get("thumbs_down", self.thumbs_down)
+        self.written_feedback = inputs.get("written_feedback", self.written_feedback)
+
+        try:
             db.session.commit()
         except Exception as e:
             db.session.rollback()
-            raise e
+            print(f"Error updating feedback: {e}")
+            return None
+        return self
 
-def initFeedbacks():
-    """
-    The initFeedbacks function creates the Feedback table and adds tester data to the table.
-    
-    Uses:
-        The db ORM methods to create the table.
-    
-    Instantiates:
-        Feedback objects with tester data.
-    
-    Raises:
-        IntegrityError: An error occurred when adding the tester data to the table.
-    """        
+    @classmethod
+    def restore(cls, data):
+        for feedback_data in data:
+            feedback_id = feedback_data.pop('id', None)
+            feedback = cls.query.filter_by(name=feedback_data.get("name")).first()
+
+            if feedback:
+                feedback.update(feedback_data)
+            else:
+                new_feedback = cls(**feedback_data)
+                new_feedback.create()
+
+        return "Restore complete"
+
+def initFeedback():
     with app.app_context():
-        """Create database and tables"""
-        db.create_all()
-        """Tester data for table"""
-        
-        p1 = Feedback(title='Calculus Help', content='Need help with derivatives.', user_id=1, post_id=1)  
-        p2 = Feedback(title='Game Day', content='Who is coming to the game?', user_id=2, post_id=2)
-        p3 = Feedback(title='New Releases', content='What movies are you excited for?', user_id=3, post_id=3)
-        p4 = Feedback(title='Study Group', content='Meeting at the library.', user_id=1, post_id=1)
-        
-        for post in [p1, p2, p3, p4]:
-            try:
-                post.create()
-                print(f"Record created: {repr(post)}")
-            except IntegrityError:
-                '''fails with bad or duplicate data'''
-                db.session.remove()
-                print(f"Records exist, duplicate email, or error: {post.uid}")
+        feedbacks = [
+            Feedback(
+                name="Alice",
+                cuisine="Italian",
+                recipe="Spaghetti Carbonara",
+                thumbs_up=5,
+                thumbs_down=1,
+                written_feedback="Delicious and easy to make!"
+            ),
+            Feedback(
+                name="Bob",
+                cuisine="Asian",
+                recipe="Sushi Rolls",
+                thumbs_up=10,
+                thumbs_down=0,
+                written_feedback="Perfect for family gatherings!"
+            ),
+        ]
+        for feedback in feedbacks:
+            feedback.create()  # This will correctly add the feedback to the database

@@ -389,7 +389,7 @@ CORS(app)  # ✅ Allow all origins
 # this runs the flask application on the development server
 if __name__ == "__main__":
    with app.app_context():
-       app.run(debug=True, host="0.0.0.0", port="8887")
+       app.run(debug=True, host="0.0.0.0", port="8403")
 
 
 

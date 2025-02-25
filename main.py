@@ -65,7 +65,7 @@ from model.fridge import Fridge, initFridge
 
 # register URIs for api endpoints
 #app.register_blueprint(messages_api) # Adi added this, messages for his website
-#app.register_blueprint(user_api)
+app.register_blueprint(user_api)
 #app.register_blueprint(pfp_api)
 #app.register_blueprint(post_api)
 #app.register_blueprint(channel_api)

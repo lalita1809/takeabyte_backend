@@ -6,12 +6,18 @@ class Feedback(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    stars = db.Column(db.Integer, default=0)
+    cuisine = db.Column(db.String(50), nullable=False)
+    recipe = db.Column(db.Text, nullable=False)
+    thumbs_up = db.Column(db.Integer, default=0)
+    thumbs_down = db.Column(db.Integer, default=0)
     written_feedback = db.Column(db.Text)
 
-    def __init__(self, name, stars=0, written_feedback=None):
+    def __init__(self, name, cuisine, recipe, thumbs_up=0, thumbs_down=0, written_feedback=None):
         self.name = name
-        self.stars = stars
+        self.cuisine = cuisine
+        self.recipe = recipe
+        self.thumbs_up = thumbs_up
+        self.thumbs_down = thumbs_down
         self.written_feedback = written_feedback
         
     def delete(self):
@@ -37,7 +43,10 @@ class Feedback(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-            "thumbs_stars": self.stars,
+            "cuisine": self.cuisine,
+            "recipe": self.recipe,
+            "thumbs_up": self.thumbs_up,
+            "thumbs_down": self.thumbs_down,
             "written_feedback": self.written_feedback,
         }
 
@@ -46,7 +55,10 @@ class Feedback(db.Model):
             return self
 
         self.name = inputs.get("name", self.name)
-        self.stars = inputs.get("thumbs_down", self.stars)
+        self.cuisine = inputs.get("cuisine", self.cuisine)
+        self.recipe = inputs.get("recipe", self.recipe)
+        self.thumbs_up = inputs.get("thumbs_up", self.thumbs_up)
+        self.thumbs_down = inputs.get("thumbs_down", self.thumbs_down)
         self.written_feedback = inputs.get("written_feedback", self.written_feedback)
 
         try:
@@ -76,15 +88,20 @@ def initFeedback():
         feedbacks = [
             Feedback(
                 name="Alice",
-                stars=5,
-                written_feedback="Great Website"
+                cuisine="Italian",
+                recipe="Spaghetti Carbonara",
+                thumbs_up=5,
+                thumbs_down=1,
+                written_feedback="Delicious and easy to make!"
             ),
             Feedback(
                 name="Bob",
-                stars=4,
-                written_feedback="Easy Access Website!"
+                cuisine="Asian",
+                recipe="Sushi Rolls",
+                thumbs_up=10,
+                thumbs_down=0,
+                written_feedback="Perfect for family gatherings!"
             ),
         ]
         for feedback in feedbacks:
             feedback.create()  # This will correctly add the feedback to the database
-

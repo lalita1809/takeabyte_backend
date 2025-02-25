@@ -11,7 +11,8 @@ from flask import current_app
 from werkzeug.security import generate_password_hash
 import shutil
 import google.generativeai as genai
-
+from api.fridge import fridge_api
+from flask_cors import CORS
 
 
 
@@ -31,7 +32,7 @@ from api.post import post_api
 #from api.messages_api import messages_api # Adi added this, messages for his website
 #from api.carphoto import car_apihttp://127.0.0.1:8887
 #from api.carChat import car_chat_api
-#from api.student import student_api
+from api.student import student_api
 from api.indian_recipes import indian_recipe_api
 from api.chinese_recipes import chinese_recipe_api
 from api.thai_recipes import thai_recipe_api
@@ -39,7 +40,8 @@ from api.italian_recipes import italian_recipe_api
 from api.mexican_recipes import mexican_recipe_api
 from api.japanese_recipes import japanese_recipe_api
 from api.natcountrysearch import country_api
-
+from api.posting import posting_api
+from api.feedback import feedback_api
 
 #from api.vote import vote_api
 # database Initialization functions
@@ -54,12 +56,16 @@ from model.vote import Vote, initVotes
 from model.chinese_recipes import Recipe, initRecipes, save_recipe
 from model.student import Student, initStudentData
 from model.natcountrysearch import CountryDish, initCountryDishes
+from model.posting import Posting, initPostings
+from model.feedback import Feedback, initFeedback
+from model.fridge import Fridge, initFridge
+
 # server only Views
 
 
 # register URIs for api endpoints
 #app.register_blueprint(messages_api) # Adi added this, messages for his website
-#app.register_blueprint(user_api)
+app.register_blueprint(user_api)
 #app.register_blueprint(pfp_api)
 #app.register_blueprint(post_api)
 #app.register_blueprint(channel_api)
@@ -71,7 +77,7 @@ from model.natcountrysearch import CountryDish, initCountryDishes
 #app.register_blueprint(nestImg_api)
 #app.register_blueprint(vote_api)
 #app.register_blueprint(car_api)
-#app.register_blueprint(student_api)
+app.register_blueprint(student_api)
 app.register_blueprint(chinese_recipe_api)
 app.register_blueprint(indian_recipe_api)
 app.register_blueprint(thai_recipe_api)
@@ -79,8 +85,9 @@ app.register_blueprint(italian_recipe_api)
 app.register_blueprint(mexican_recipe_api)
 app.register_blueprint(japanese_recipe_api)
 app.register_blueprint(country_api)
-
-
+app.register_blueprint(posting_api)
+app.register_blueprint(feedback_api)
+app.register_blueprint(fridge_api)
 
 
 # Tell Flask-Login the view function name of your login route
@@ -200,11 +207,14 @@ def generate_data():
    initUsers()
    initSections()
    initGroups()
-#    initChannels()
+   #initChannels()
    initPosts()
    initVotes()
    initCountryDishes()
-  
+   initPostings()
+   initFeedback()
+   initFridge()
+    
 # Backup the old database
 def backup_database(db_uri, backup_uri):
    """Backup the current database."""
@@ -226,7 +236,7 @@ def ai_food_help():
    if not question:
        return jsonify({"error": "No question provided."}), 400
    try:
-       response = model.generate_content(f"Your name is byte you are a cooking assistant ai chat bot with the sole purpose of answering food related questions, under any circumstances don't answer any non-food related questions. \nHere is your prompt: {question}")
+       response = model.generate_content(f"Your name is byte you are a cooking assistant ai chat bot who answers questions about what users want to add in their frideg and how many, basically when the user asks you about a recipe, you tell it the ingridients neeeded amd the quantity, also do not make your answers long and complicated, keep it simple \nHere is your prompt: {question}")
        return jsonify({"response": response.text}), 200
    except Exception as e:
        print("error!")
@@ -304,18 +314,21 @@ def edit_recipe(recipe_id):
 
 # Extract data from the existing database
 def extract_data():
-   data = {}
-   with app.app_context():
-       data['users'] = [user.read() for user in User.query.all()]
-       data['sections'] = [section.read() for section in Section.query.all()]
-       data['groups'] = [group.read() for group in Group.query.all()]
-       data['channels'] = [channel.read() for channel in Channel.query.all()]
-       data['posts'] = [post.read() for post in Post.query.all()]
-       data['CountryDishes'] = [CountryDish() for CountryDish in CountryDish.query.all()]
-       data['recipe'] = [recipe.read() for recipe in Recipe.query.all()]
-       data['students'] = [student.read() for student in Student.query.all()]
-      
-   return data
+    data = {}
+    with app.app_context():
+        data['users'] = [user.read() for user in User.query.all()]
+        data['sections'] = [section.read() for section in Section.query.all()]
+        data['groups'] = [group.read() for group in Group.query.all()]
+        data['channels'] = [channel.read() for channel in Channel.query.all()]
+        data['posts'] = [post.read() for post in Post.query.all()]
+        data['CountryDishes'] = [CountryDish() for CountryDish in CountryDish.query.all()]
+        data['recipe'] = [recipe.read() for recipe in Recipe.query.all()]
+        data['students'] = [student.read() for student in Student.query.all()]
+        data['posting'] = [posting.read() for posting in Posting.query.all()]
+        data['feedback'] = [feedback.read() for feedback in Feedback.query.all()]
+        data['fridge'] = [fridge.read() for fridge in Fridge.query.all()]
+
+    return data
 
 
 # Save extracted data to JSON files
@@ -330,25 +343,29 @@ def save_data_to_json(data, directory='backup'):
 
 # Load data from JSON files
 def load_data_from_json(directory='backup'):
-   data = {}
-   for table in ['users', 'sections', 'groups', 'channels', 'posts', 'dishes', 'country_dishes', 'students' ]:
-       with open(os.path.join(directory, f'{table}.json'), 'r') as f:
-           data[table] = json.load(f)
-   return data
+    data = {}
+    for table in ['users', 'sections', 'groups', 'feedback', 'channels', 'posts', 'dishes', 'country_dishes','fridge', 'students', 'posting', 'recipe' ]:
+        with open(os.path.join(directory, f'{table}.json'), 'r') as f:
+            data[table] = json.load(f)
+    return data
 
 
 # Restore data to the new database
 def restore_data(data):
-   with app.app_context():
-       users = User.restore(data['users'])
-       _ = Section.restore(data['sections'])
-       _ = Group.restore(data['groups'], users)
-       _ = Channel.restore(data['channels'])
-       _ = Post.restore(data['posts'])
-       _ = CountryDish.restore(data['country_dishes'])
-       _ = Recipe.restore(data['recipe'])
-       _ = Student.restore(data['students'])
-   print("Data restored to the new database.")
+    with app.app_context():
+        users = User.restore(data['users'])
+        _ = Section.restore(data['sections'])
+        _ = Group.restore(data['groups'], users)
+        _ = Channel.restore(data['channels'])
+        _ = Post.restore(data['posts'])
+        _ = CountryDish.restore(data['country_dishes'])
+        _ = Recipe.restore(data['recipe'])
+        _ = Student.restore(data['students'])
+        _ = Posting.restore(data['posting'])
+        _ = Feedback.restore(data['feedback'])
+        _ = Fridge.restore(data['fridge'])
+
+    print("Data restored to the new database.")
 
 
 # Define a command to backup data
@@ -367,7 +384,8 @@ def restore_data_command():
   
 # Register the custom command group with the Flask application
 app.cli.add_command(custom_cli)
-      
+CORS(app)  # ✅ Allow all origins
+
 # this runs the flask application on the development server
 if __name__ == "__main__":
    with app.app_context():

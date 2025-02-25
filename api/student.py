@@ -17,37 +17,37 @@ class StudentAPI:
                 "name": "Ahmad",
                 "age": 15,
                 "grade": "Sophomore",
-                "favorite_color": "Blue",
+                "favorite_dish": "Blue",
             },
             "Nathan": {
                 "name": "Nathan Tejidor",
                 "age": 16,
                 "grade": "Sophomore",
-                "favorite_color": "Red",
+                "favorite_dish": "Red",
             },
             "Bailey": {
                 "name": "Bailey Leeder",
                 "age": 16,
                 "grade": "Junior",
-                "favorite_color": "Green",
+                "favorite_dish": "Green",
             },
             "Yuva": {
                 "name": "Yuva Bala",
                 "age": 15,
                 "grade": "Sophomore",
-                "favorite_color": "Navy Blue",
+                "favorite_dish": "Navy Blue",
             },
             "Joanna": {
                 "name": "Joanna Hu",
                 "age": 17,
                 "grade": "Senior",
-                "favorite_color": "Blue",
+                "favorite_dish": "Blue",
             },
             "Lalita": {
                 "name": "Lalita Narayanan",
                 "age": 17,
                 "grade": "Senior",
-                "favorite_color": "Purple",
+                "favorite_dish": "Purple",
             },
         }
         return students.get(name)
@@ -108,12 +108,12 @@ class StudentAPI:
             if grade is None:
                 return {'message': 'Grade is missing'}, 400
             
-            favorite_color = body.get('favorite_color')
-            if favorite_color is None or len(favorite_color) < 2:
-                return {'message': 'Favorite Color is missing, or is less than 2 characters'}, 400
+            favorite_dish = body.get('favorite_dish')
+            if favorite_dish is None or len(favorite_dish) < 2:
+                return {'message': 'Favorite dish is missing, or is less than 2 characters'}, 400
 
             # Setup minimal Student OBJECT
-            student_obj = Student(name=name, age=age, grade=grade, favorite_color=favorite_color)
+            student_obj = Student(name=name, age=age, grade=grade, favorite_dish=favorite_dish)
 
             # Add user to database
             student = student_obj.create()  # pass the body elements to be saved in the database
@@ -189,7 +189,7 @@ class StudentAPI:
             name = body['name']
             age = body.get('age')
             grade = body.get('grade')
-            favorite_color = body.get('favorite_color')
+            favorite_dish = body.get('favorite_dish')
 
             # Check if the student exists in the database
             student = Student.query.filter_by(name=name).first()
@@ -202,8 +202,8 @@ class StudentAPI:
                 return {'message': f'Age mismatch. Student age is {student.age}, but received {age}.'}, 400
             if grade is not None and student.grade != grade:
                 return {'message': f'Grade mismatch. Student grade is {student.grade}, but received {grade}.'}, 400
-            if favorite_color is not None and student.favorite_color != favorite_color:
-                return {'message': f'Favorite color mismatch. Student color is {student.favorite_color}, but received {favorite_color}.'}, 400
+            if favorite_dish is not None and student.favorite_dish != favorite_dish:
+                return {'message': f'Favorite dish mismatch. Student dish is {student.favorite_dish}, but received {favorite_dish}.'}, 400
 
             # Assuming student.read() returns a dictionary of their data
             try:

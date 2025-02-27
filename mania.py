@@ -227,4 +227,4 @@ app.cli.add_command(custom_cli)
 
 # This runs the Flask application on the development server
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port="8887")
+    app.run(debug=True, host="0.0.0.0", port="8403")

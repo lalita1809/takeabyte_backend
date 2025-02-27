@@ -236,6 +236,6 @@ api.add_resource(postingAPI._Delete, '/posting/delete')
 posting_api_instance = postingAPI()
 
 if __name__ == '__main__':
-    app.run(port=8887)
+    app.run(port=8403)
 
    

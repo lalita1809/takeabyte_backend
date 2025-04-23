@@ -51,7 +51,7 @@ class UpdateRecipe(Resource):
             db.session.rollback()
             return {"message": f"An error occurred: {str(e)}"}, 500
 
-class chinese_recipe_API:
+class chinese_recipe_API: #partners work start
     @staticmethod
     def get_chicken_recipe(name):
         recipes = {
@@ -62,6 +62,7 @@ class chinese_recipe_API:
                 "instructions":
                 "Cut chicken into small cubes and marinate with soy sauce and cornstarch for 10 minutes. Heat oil in a wok, fry dried chilies and peanuts until fragrant. Add garlic and ginger, stir-fry for 30 seconds. Add chicken and stir-fry until golden brown. Mix soy sauce, rice vinegar, sugar, and stir into the wok. Add spring onions and stir-fry for 2 more minutes before serving.",
             },
+            #partner work end
              "Orange Chicken": {
                 "dish": "Orange Chicken",
                 "time": 40,
@@ -265,12 +266,12 @@ class chinese_recipe_API:
       
       
 
-    class _KungPaoChicken(Resource):
+    class _KungPaoChicken(Resource): #partner work start
         def get(self):
             recipe = chinese_recipe_API.get_chicken_recipe("Kung Pao Chicken")
             if recipe:
                 return jsonify(recipe)
-            return {"Data not found"}, 404
+            return {"Data not found"}, 404 #partner work end
 
     class _OrangeChicken(Resource):
         def get(self):
@@ -472,7 +473,7 @@ api.add_resource(SaveRecipe, '/save_recipe')
 api.add_resource(UpdateRecipe, '/edit_recipe/<int:recipe_id>')
 
         
-api.add_resource(chinese_recipe_API._KungPaoChicken, '/chinese_recipe/KungPaoChicken')
+api.add_resource(chinese_recipe_API._KungPaoChicken, '/chinese_recipe/KungPaoChicken') #partner wrote
 api.add_resource(chinese_recipe_API._OrangeChicken, '/chinese_recipe/OrangeChicken')
 api.add_resource(chinese_recipe_API._LemonChicken, '/chinese_recipe/LemonChicken')
 api.add_resource(chinese_recipe_API._CrispySweetAndSourChicken, '/chinese_recipe/CrispySweetAndSourChicken')
@@ -507,7 +508,7 @@ api.add_resource(chinese_recipe_API._LambWithVegetablesStirFry, '/chinese_recipe
 api.add_resource(chinese_recipe_API._LambCurry, '/chinese_recipe/LambCurry')
 
 # Instantiate the StudentAPI to register the endpoints
-chinese_recipe_api_instance = chinese_recipe_API()
+chinese_recipe_api_instance = chinese_recipe_API() #partner wrote
 
 
     
